@@ -1,0 +1,70 @@
+import mongoose from "mongoose";
+import z from "zod";
+
+const schema = z.object({
+  title: z.string().nonempty(),
+  date: z.number(),
+  details: z.string().optional(),
+  game: z.string().nonempty(),
+  participants: z.number(),
+  state: z.union([z.string().regex(/^\d+$/).transform(Number), z.number()]),
+  limit: z.number().optional(),
+  organizer: z.string().nonempty().optional(),
+  url: z.string().nonempty(),
+  tags: z.array(z.string()),
+});
+const tournamentZodSchema = schema.transform((obj) => {
+  if (typeof obj.limit !== "number") delete obj.limit;
+  return obj;
+});
+type tournament = z.infer<typeof tournamentZodSchema> & mongoose.Document;
+
+const tournamentSchema = new mongoose.Schema<tournament>({
+  title: {
+    type: String,
+    required: true,
+    min: 0,
+  },
+  date: {
+    type: Number,
+    required: true,
+  },
+  details: {
+    type: String,
+    required: false,
+    min: 0,
+  },
+  game: {
+    type: String,
+    required: true,
+  },
+  participants: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  state: {
+    type: Number,
+    default: 0,
+  },
+  limit: {
+    type: Number,
+    required: false,
+  },
+  organizer: {
+    type: String,
+    required: false,
+    min: 0,
+  },
+  url: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  tags: {
+    type: [String],
+    required: true,
+  },
+});
+export default (mongoose.models.tournament as mongoose.Model<tournament>) ||
+  mongoose.model<tournament>("tournament", tournamentSchema);
