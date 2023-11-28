@@ -1,10 +1,6 @@
-import Ocg from "../models/Ocg";
-
-export const getOcgCard = async (id: number) => {
-  const result = await Ocg.findOne({ id }, { _id: 0 }).lean();
-  if (result) {
-    const find = result;
-    const data = { ...find, type: [] as string[], oldType: find.type };
+export const convertOcgCard = (card: any) => {
+  if (card) {
+    const data = { ...card, type: [] as string[], oldType: card.type };
     if (data.frameType == "spell") {
       data.attribute = "SPELL";
     }

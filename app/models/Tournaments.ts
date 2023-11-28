@@ -31,7 +31,6 @@ const tournamentSchema = new mongoose.Schema<tournament>({
   },
   details: {
     type: String,
-    required: false,
     min: 0,
   },
   game: {
@@ -49,11 +48,9 @@ const tournamentSchema = new mongoose.Schema<tournament>({
   },
   limit: {
     type: Number,
-    required: false,
   },
   organizer: {
     type: String,
-    required: false,
     min: 0,
   },
   url: {
