@@ -37,7 +37,7 @@ export const Skill = (props: SkillProps) => {
                 <Container className="w-[600px] grid grid-cols-5 p-6 content-center gap-4 text-slate-300">
                   <FallbackImage
                     src={`/img/characters/${props.character}.webp`}
-                    fallback="/img/characters/icons/vrains01.png"
+                    fallback="/img/characters/UnknownCharater.png"
                     alt="Yami Yugi"
                     width={100}
                     height={100}

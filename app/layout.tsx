@@ -25,13 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-        <script src="/lib/createjs.min.js"></script>
-        <script src="/lib/particlejs.min.js"></script>
+        {/* <script src="/lib/createjs.min.js" async />
+        <script src="/lib/particlejs.min.js" async /> */}
       </head>
       <ModalContextProvider>
         <body className={`min-h-[100vh] ${roboto.variable} ${KafuTechnoStd.variable}`}>
           <div className="fixed inset-0 bg-gradient-to-b from-[#000305] via-[#000305] to-[#130316] z-0" />
-          {/* <Sparks />*/}
+          <Sparks />
           <div className="fixed inset-0 master-duel-screen-texture z-0" />
           <Navbar />
           <Modal />

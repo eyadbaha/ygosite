@@ -1,31 +1,43 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useRef, MouseEvent, useEffect } from 'react'
+import Link from "next/link";
+import { useRef, MouseEvent, useEffect } from "react";
 
 const navbarList = [
   {
-    name: 'Game Settings',
-    link: 'card',
+    name: "Game Settings",
+    link: "card",
   },
   {
-    name: 'Help',
-    link: '#',
+    name: "Help",
+    link: "#",
   },
   {
-    name: 'Forbidden/Limited',
-    link: '#',
+    name: "Forbidden/Limited",
+    link: "#",
   },
-]
+  {
+    name: "Deck Edit Tester (dev)",
+    link: "/deck-edit",
+  },
+  {
+    name: "SPEED Report Example (dev)",
+    link: "/speed",
+  },
+  {
+    name: "RUSH Report Example (dev)",
+    link: "/rush",
+  },
+];
 export default () => {
-  const navbarRef = useRef<HTMLDivElement>(null)
-  const blurRef = useRef<HTMLDivElement>(null)
+  const navbarRef = useRef<HTMLDivElement>(null);
+  const blurRef = useRef<HTMLDivElement>(null);
   const toggleNavbar = (e: MouseEvent<SVGSVGElement | HTMLDivElement>) => {
-    blurRef.current?.classList.toggle('opacity-100')
-    blurRef.current?.classList.toggle('opacity-0')
-    blurRef.current?.classList.toggle('scale-0')
-    navbarRef.current?.classList.toggle('translate-x-[-100%]')
-  }
+    blurRef.current?.classList.toggle("opacity-100");
+    blurRef.current?.classList.toggle("opacity-0");
+    blurRef.current?.classList.toggle("scale-0");
+    navbarRef.current?.classList.toggle("translate-x-[-100%]");
+  };
   const NavButtons = () => {
     return (
       <>
@@ -42,12 +54,12 @@ export default () => {
           <rect width="50" height="50" fill="none" />
           <path d="M16.417 9.583A7.917 7.917 0 1 1 8.5 1.666a7.917 7.917 0 0 1 7.917 7.917zm-2.967-3.47a.792.792 0 0 0-.792-.792H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.791zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792z" />
         </svg>
-        <Link href={'/'}>
+        <Link href={"/"}>
           <img src="/img/logo.svg" className="h-[45px] w-auto" />
         </Link>
       </>
-    )
-  }
+    );
+  };
   return (
     <>
       <div className="top-0 left-0 fixed w-full h-[60px] bg-black flex gap-[1em] items-center pl-4 z-[2]">
@@ -78,5 +90,5 @@ export default () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};

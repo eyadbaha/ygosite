@@ -2,24 +2,25 @@ import mongoose from "mongoose";
 import z from "zod";
 
 const schema = z.object({
-  main: z.array(z.number()).min(20).max(60),
-  extra: z.array(z.number()).max(15).optional(),
-  side: z.array(z.number()).max(15).optional(),
-  skill: z.number().optional(),
+  mainDeck: z.array(z.number()).min(20).max(60),
+  extraDeck: z.array(z.number()).max(15).optional(),
+  sideDeck: z.array(z.number()).max(15).optional(),
+  skill: z.string().optional(),
   type: z.string(),
   name: z.string(),
+  format: z.enum(["sd", "md", "ocg"]),
 });
 type deck = z.infer<typeof schema> & mongoose.Document;
 
 const deckSchema = new mongoose.Schema<deck>(
   {
-    main: {
+    mainDeck: {
       type: [Number],
       required: true,
     },
-    extra: [Number],
-    side: [Number],
-    skill: Number,
+    extraDeck: [Number],
+    sideDeck: [Number],
+    skill: String,
     type: {
       type: String,
       required: true,
@@ -27,6 +28,11 @@ const deckSchema = new mongoose.Schema<deck>(
     name: {
       type: String,
       required: true,
+    },
+    format: {
+      type: String,
+      enum: ["sd", "md", "ocg", "rd"],
+      default: "ocg",
     },
   },
   { collection: "decks" }

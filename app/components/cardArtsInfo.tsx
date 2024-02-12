@@ -14,7 +14,7 @@ export const CardArtsInfo = (props: cardArtsInfo) => {
       <div className="flex flex-wrap">
         {cardInfo.arts?.map((art) => {
           return (
-            <div className="w-1/4 p-1">
+            <div className="w-1/4 p-1" key={art}>
               <div
                 className="cursor-pointer"
                 onClick={(e) => {
