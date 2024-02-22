@@ -12,6 +12,7 @@ const schema = z.object({
   organizer: z.string().nonempty().optional(),
   url: z.string().nonempty(),
   tags: z.array(z.string()),
+  brackets: z.any(),
 });
 const tournamentZodSchema = schema.transform((obj) => {
   if (typeof obj.limit !== "number") delete obj.limit;
@@ -62,6 +63,26 @@ const tournamentSchema = new mongoose.Schema<tournament>({
     type: [String],
     required: true,
   },
+  brackets: {
+    type: {
+      players: [
+        {
+          id: { type: String || Number, required: true },
+          place: { type: Number, required: true },
+          deckType: {
+            type: String,
+            required: false,
+          },
+          deck: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+          },
+        },
+      ],
+      matches: [{ round: Number, players: [{ id: String || Number, score: Number }] }],
+    },
+  },
 });
+tournamentSchema.index({ "brackets.matches.players.id": 1 });
 export default (mongoose.models.tournament as mongoose.Model<tournament>) ||
   mongoose.model<tournament>("tournament", tournamentSchema);

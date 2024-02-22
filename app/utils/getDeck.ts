@@ -20,7 +20,7 @@ export const getDeck = async (id: string) => {
             id: skillDB.id,
             name: skillDB.name,
             desc: skillDB.description,
-            character: skillDB.characters[0].character.name,
+            character: skillDB?.characters[0]?.character?.name || "UnknownCharater",
             format: "SPEED",
           };
         }
