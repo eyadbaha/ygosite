@@ -1,9 +1,9 @@
 import MainListSection from "./components/MainListSection";
 import NavCard from "./components/NavCard";
 import PostCard from "./components/PostCard";
-import postsRequest from "./data/posts.json";
-import newsRequest from "./data/news.json";
-import latestCardsRequest from "./data/latestCards.json";
+import postsRequest from "./ExampleData/posts.json";
+import newsRequest from "./ExampleData/news.json";
+import latestCardsRequest from "./ExampleData/latestCards.json";
 import Timer from "./components/Timer";
 import Tournaments from "./models/Tournaments";
 import dbConnect from "./utils/dbConnect";
@@ -69,13 +69,7 @@ export default async () => {
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {posts.map((post) => (
                   <>
-                    <PostCard
-                      title={post.title}
-                      time={post.time}
-                      imgSrc={post.imgSrc}
-                      link={post.link}
-                      tags={post.tags}
-                    />
+                    <PostCard title={post.title} time={post.time} imgSrc={post.imgSrc} link={post.link} tags={post.tags} />
                   </>
                 ))}
               </div>

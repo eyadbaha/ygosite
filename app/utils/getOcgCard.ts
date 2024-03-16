@@ -1,7 +1,7 @@
-import Ocg from "../models/Ocg";
+import Card from "../models/Card";
 
 export const getOcgCard = async (id: number) => {
-  const result = await Ocg.findOne({ id }, { _id: 0 }).lean();
+  const result = await Card.findOne({ id }, { _id: 0 }).lean();
   if (result) {
     const find = result;
     const data: any = { ...find, type: [] as string[], oldType: find.type };
@@ -11,19 +11,6 @@ export const getOcgCard = async (id: number) => {
     if (data.frameType == "trap") {
       data.attribute = "TRAP";
     }
-    let type: any = data.oldType
-      .replace(/Spell Card/g, "")
-      .replace(/Trap Card/g, "")
-      .replace(/ Monster/g, "");
-    type && (type = type.split(" "));
-    data.type = [];
-    data.race && data.type.push(data.race);
-    type && data.type.push(...type);
-    type && !type.includes("Normal") && !type.includes("Effect") && data.type.push("Effect");
-    if (data.linkval) data.level = data.linkval;
-    delete data.card_images;
-    delete data.card_prices;
-    delete data.card_sets;
     return data;
   } else
     return {

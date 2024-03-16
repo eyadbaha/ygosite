@@ -1,83 +1,77 @@
 import Image from "next/image";
-import YugiohCard, { RushCardProps } from "./YugiohCard";
+import YugiohCard, { YugiohCardProps } from "./YugiohCard/Client";
 import FallbackImage from "./FallbackImage";
 import { Skill, SkillProps } from "./Skill";
-import { RushContainer } from "./RushContainer";
 import { HTMLProps } from "react";
-import { DlContainer } from "./DlContainer";
-import { MasterContainer } from "./MasterContainer";
+import { YugiohCardType } from "../types/YugiohCard";
 
 type RushDeckProps = {
   //deckType: string;
-  mainDeck: RushCardProps[];
-  extraDeck?: RushCardProps[];
-  sideDeck?: RushCardProps[];
+  mainDeck: YugiohCardType[];
+  extraDeck?: YugiohCardType[];
+  sideDeck?: YugiohCardType[];
   skill?: SkillProps;
   format: "OCG" | "MASTER" | "SPEED" | "RUSH";
 };
 
 export const Deck = (props: RushDeckProps) => {
-  let Container: (props: HTMLProps<HTMLDivElement>) => JSX.Element;
+  let Container: string;
   if (props.format == "RUSH") {
-    Container = RushContainer;
+    Container = " dl-rush-container";
   } else if (props.format == "SPEED") {
-    Container = MasterContainer;
+    Container = " dl-speed-container";
   } else {
-    Container = DlContainer;
+    Container = " md-container";
   }
   const normal = props.mainDeck.filter((e) => {
-    return (
-      e.type.some((str) => str === "Normal") &&
-      !e.type.some((str) => str === "Spell") &&
-      !e.type.some((str) => str === "Trap")
-    );
+    return e.types.some((str) => str === "Normal");
   }).length;
   const effect = props.mainDeck.filter((e) => {
     return (
-      e.type.some((str) => str === "Effect") &&
-      !e.type.some((str) => str === "Ritual") &&
-      !e.type.some((str) => str === "Fusion") &&
-      !e.type.some((str) => str === "Synchro") &&
-      !e.type.some((str) => str === "Xyz") &&
-      !e.type.some((str) => str === "Link")
+      e.types.some((str) => str === "Effect") &&
+      !e.types.some((str) => str === "Ritual") &&
+      !e.types.some((str) => str === "Fusion") &&
+      !e.types.some((str) => str === "Synchro") &&
+      !e.types.some((str) => str === "Xyz") &&
+      !e.types.some((str) => str === "Link")
     );
   }).length;
   const ritual = props.mainDeck.filter((e) => {
-    return e.type.some((str) => str === "Ritual");
+    return e.types.some((str) => str === "Ritual");
   }).length;
   const fusion =
     props.extraDeck?.filter((e) => {
-      return e.type.some((str) => str === "Fusion");
+      return e.types.some((str) => str === "Fusion");
     }).length || 0;
   const synchro =
     props.extraDeck?.filter((e) => {
-      return e.type.some((str) => str === "Synchro");
+      return e.types.some((str) => str === "Synchro");
     }).length || 0;
   const xyz =
     props.extraDeck?.filter((e) => {
-      return e.type.some((str) => str === "Xyz");
+      return e.types.some((str) => str === "Xyz");
     }).length || 0;
   const link =
     props.extraDeck?.filter((e) => {
-      return e.type.some((str) => str === "Link");
+      return e.types.some((str) => str === "Link");
     }).length || 0;
   const spell = props.mainDeck.filter((e) => {
-    return e.attribute == "SPELL";
+    return e.types.includes("Spell");
   }).length;
   const trap = props.mainDeck.filter((e) => {
-    return e.attribute == "TRAP";
+    return e.types.includes("Trap");
   }).length;
   const mainDeck = props.mainDeck.length;
   const sideDeck = props.sideDeck?.length;
   const extraDeck = props.extraDeck?.length;
   return (
     <>
-      <Container className="w-[620px]">
+      <div className={`w-7/8${Container} max-w-[620px] sm:max-sm:m-auto`}>
         {/*Character and Skill Section*/}
         {props.skill && (
           <>
-            <div className="grid grid-cols-6 grid-rows-3 w-full p-3 pb-0">
-              <div className="col-span-1 row-span-3">
+            <div className="grid grid-cols-6 grid-rows-5 w-full p-3 pb-0">
+              <div className="col-start-1 row-start-1 col-span-1 row-span-4">
                 <FallbackImage
                   src={`/img/characters/${props.skill.character}.png`}
                   fallback="/img/characters/UnknownCharater.png"
@@ -86,26 +80,19 @@ export const Deck = (props: RushDeckProps) => {
                   height={100}
                 ></FallbackImage>
               </div>
-              <div className="col-span-2 row-span-2">
+              <div className="col-start-2 row-start-1 col-span-2 row-span-4 text-xs">
                 <p>Main Deck:{mainDeck}</p>
                 {extraDeck && <p>Extra Deck:{extraDeck}</p>}
                 {sideDeck && <p>Side Deck:{sideDeck}</p>}
               </div>
-              <div className="col-start-2 row-start-3 col-span-4 row-span-1 flex justify-center items-end">
+              <div className="col-start-1 row-start-5 col-span-6 row-span-1 flex justify-center items-end">
                 <div className="flex items-center justify-center gap-1">
-                  <FallbackImage
-                    className="w-7 h-7"
-                    src="/img/icons/skill.png"
-                    fallback="/img/icons/skill.png"
-                    alt="Skill"
-                    width={100}
-                    height={100}
-                  />
+                  <FallbackImage className="w-7 h-7" src="/img/icons/skill.png" fallback="/img/icons/skill.png" alt="Skill" width={100} height={100} />
                   <Skill {...props.skill} format={props.format} />
                 </div>
               </div>
-              <div className="col-start-4 row-start-1 col-span-3 row-span-2 flex justify-end items-start">
-                <div className="flex flex-wrap justify-center items-center gap-1 w-[55%]">
+              <div className="col-end-7 row-start-1 col-span-3 row-span-4 hidden md:flex justify-end items-start">
+                <div className="flex flex-wrap justify-end items-end w-[70%]">
                   {props.format == "RUSH" ? (
                     <>
                       <div className="flex w-full items-center  place-content-start gap-1">
@@ -123,7 +110,7 @@ export const Deck = (props: RushDeckProps) => {
                     </>
                   ) : (
                     <>
-                      <div className="flex w-full items-center  place-content-start gap-1">
+                      <div className="grid grid-cols-10">
                         <Image src="/img/icons/deck/normal.png" alt="Normal Monsters" width={15} height={15} />
                         <span>{normal}</span>
                         <Image src="/img/icons/deck/effect.png" alt="Effect Monsters" width={15} height={15} />
@@ -134,8 +121,6 @@ export const Deck = (props: RushDeckProps) => {
                         <span>{spell}</span>
                         <Image src="/img/icons/deck/trap.png" alt="Trap Cards" width={15} height={15} />
                         <span>{trap}</span>
-                      </div>
-                      <div className="flex w-full items-center place-content-start gap-1">
                         <Image src="/img/icons/deck/fusion.png" alt="Fusion Monsters" width={15} height={15} />
                         <span>{fusion}</span>
                         <Image src="/img/icons/deck/synchro.png" alt="Spell Cards" width={15} height={15} />
@@ -159,8 +144,8 @@ export const Deck = (props: RushDeckProps) => {
           <div className="flex flex-wrap w-full">
             {props.mainDeck.map((e, index) => {
               return (
-                <div className="w-[10%] p-[0.2em]" key={index}>
-                  <YugiohCard {...e} rarity={e.rarity || "UR"} format={props.format} />
+                <div className="w-1/5 p-[0.2em] md:w-1/6 lg:w-[10%]" key={index}>
+                  <YugiohCard card={e} rarity={"UR"} format={props.format} />
                 </div>
               );
             })}
@@ -172,8 +157,8 @@ export const Deck = (props: RushDeckProps) => {
               <div className="flex flex-wrap w-full">
                 {props.extraDeck.map((e, index) => {
                   return (
-                    <div className="w-[10%] p-[0.2em]" key={index}>
-                      <YugiohCard {...e} rarity={e.rarity || "UR"} format={props.format} />
+                    <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
+                      <YugiohCard card={e} rarity={"UR"} format={props.format} />
                     </div>
                   );
                 })}
@@ -187,8 +172,8 @@ export const Deck = (props: RushDeckProps) => {
               <div className="flex flex-wrap w-full">
                 {props.sideDeck.map((e, index) => {
                   return (
-                    <div className="w-[10%] p-[0.2em]" key={index}>
-                      <YugiohCard {...e} rarity={e.rarity || "UR"} format={props.format} />
+                    <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
+                      <YugiohCard card={e} rarity={"UR"} format={props.format} />
                     </div>
                   );
                 })}
@@ -196,7 +181,7 @@ export const Deck = (props: RushDeckProps) => {
             </>
           )}
         </div>
-      </Container>
+      </div>
     </>
   );
 };

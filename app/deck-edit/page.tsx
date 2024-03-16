@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { convertOcgCard } from "../utils/convertOcgCard";
-import { DlContainer } from "../components/DlContainer";
-import YugiohCard from "../components/YugiohCard";
+import YugiohCard from "../components/YugiohCard/Client";
 
 export default () => {
   const [searchCards, setSearchCards] = useState<any>([]);
@@ -52,27 +50,40 @@ export default () => {
     "Amazement",
   ];
   const deckSortFunction = (a: any, b: any) => {
-    const typeOrder: { [key: string]: number } = {
-      "Normal Monster": 0,
-      "Effect Monster": 1,
-      "Ritual Monster": 2,
-      "Ritual Effect Monster": 2,
-      "Spell Card": 3,
-      "Trap Card": 4,
-      "Fusion Monster": 5,
-      "Synchro Monster": 6,
-      "XYZ Monster": 7,
-      "Link Monster": 8,
+    const checkMonster = (card: any) => {
+      if (card.types.includes("Spell") || card.types.includes("Trap")) {
+        return 0;
+      }
+      return 1;
     };
-
-    const defaultTypeOrder = -1;
-    const typeComparison = (typeOrder[a.oldType] || defaultTypeOrder) - (typeOrder[b.oldType] || defaultTypeOrder);
-    console.log(a.oldType, b.oldType);
-    if (typeComparison !== 0) {
-      return typeComparison;
+    const checkSpecialMonster = (card: any) => {
+      if (card.types.some((type: string) => ["Ritual", "Fusion", "Synchro", "Xyz", "Link"].includes(type))) {
+        return 1;
+      }
+      return 0;
+    };
+    const monsterTypePriority = ["Ritual", "Fusion", "Synchro", "Xyz", "Link", "Normal", "Effect"];
+    const nonMonsterTypePriority = ["Spell", "Trap"];
+    if (checkMonster(a) == checkMonster(b)) {
+      if (checkMonster(a) && checkMonster(b)) {
+        if (checkSpecialMonster(a) == checkSpecialMonster(b)) {
+          const compareTypes =
+            monsterTypePriority.findIndex((type: any) => a.types.includes(type)) - monsterTypePriority.findIndex((type: any) => b.types.includes(type));
+          const compareLevels = a.level - b.level;
+          if (compareTypes != 0) return compareTypes;
+          if (compareLevels != 0) return compareLevels;
+        } else {
+          return checkSpecialMonster(a) - checkSpecialMonster(b);
+        }
+      } else {
+        const compareTypes =
+          nonMonsterTypePriority.findIndex((type: any) => a.types.includes(type)) - nonMonsterTypePriority.findIndex((type: any) => b.types.includes(type));
+        if (compareTypes != 0) return compareTypes;
+      }
+      return a.name.localeCompare(b.name);
+    } else {
+      return checkMonster(b) - checkMonster(a);
     }
-
-    return a.name.localeCompare(b.name);
   };
   const [tab, setTab] = useState<"Main" | "Extra" | "Side">("Main");
   const getCardQuantity = (id: number): number => {
@@ -108,7 +119,7 @@ export default () => {
         const a = await fetch(`/api/cards?name=${encodeURIComponent(input)}&limit=20&offset=0`);
         const b = await a.json();
         const data = b?.map((e: any) => {
-          return convertOcgCard(e);
+          return e;
         });
         setSearchCards(data || []);
         setSearchKey((prev) => prev + 1);
@@ -144,12 +155,7 @@ export default () => {
   }, []);
   return (
     <div className="text-black block">
-      <input
-        className="block my-3"
-        placeholder="Enter deck name..."
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <input className="block my-3" placeholder="Enter deck name..." value={name} onChange={(e) => setName(e.target.value)} />
       <select className="block my-3" onChange={(e) => setFormat(e.target.value as any)}>
         <option value={"sd"} key="sd">
           Speed Duel
@@ -159,6 +165,9 @@ export default () => {
         </option>
         <option value={"ocg"} key="ocg">
           Official Card Game
+        </option>
+        <option value={"rd"} key="rd">
+          Rush Duel
         </option>
       </select>
       <select className="block my-3" onChange={(e) => setType(e.target.value)}>
@@ -226,7 +235,7 @@ export default () => {
       <br />
       <div className="flex justify-between">
         <div>
-          <DlContainer className="w-[620px]" key={searchKey}>
+          <div className="w-[620px] dl-speed-container" key={searchKey}>
             <div className="w-full p-3">
               <div className="flex flex-wrap w-full">
                 {searchCards.map((e: any) => {
@@ -246,24 +255,24 @@ export default () => {
                         }
                       }}
                     >
-                      <YugiohCard {...e} format={"OCG"} disableModal />
+                      <YugiohCard card={e} format={"OCG"} disableModal />
                     </div>
                   );
                 })}
                 <br />
               </div>
             </div>
-          </DlContainer>
+          </div>
         </div>
         <div>
-          <DlContainer className="w-[620px]">
+          <div className="w-[620px] dl-speed-container">
             <div className="w-full p-3">
               Main Deck:
               <div className="flex flex-wrap w-full">
                 {mainDeck.map((e: any) => {
                   return (
                     <div className="w-[10%] p-[0.2em] cursor-pointer" onClick={(f) => removeCard(e.id, "Main")}>
-                      <YugiohCard {...e} format={"OCG"} disableModal />
+                      <YugiohCard card={e} format={"OCG"} disableModal />
                     </div>
                   );
                 })}
@@ -273,7 +282,7 @@ export default () => {
                 {extraDeck.map((e: any) => {
                   return (
                     <div className="w-[10%] p-[0.2em] cursor-pointer" onClick={(f) => removeCard(e.id, "Extra")}>
-                      <YugiohCard {...e} format={"OCG"} disableModal />
+                      <YugiohCard card={e} format={"OCG"} disableModal />
                     </div>
                   );
                 })}
@@ -283,13 +292,13 @@ export default () => {
                 {sideDeck.map((e: any) => {
                   return (
                     <div className="w-[10%] p-[0.2em] cursor-pointer" onClick={(f) => removeCard(e.id, "Side")}>
-                      <YugiohCard {...e} format={"OCG"} disableModal />
+                      <YugiohCard card={e} format={"OCG"} disableModal />
                     </div>
                   );
                 })}
               </div>
             </div>
-          </DlContainer>
+          </div>
         </div>
       </div>
     </div>

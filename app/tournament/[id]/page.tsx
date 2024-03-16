@@ -17,7 +17,7 @@ function formatPlacementNumber(placement: number) {
   }
 }
 
-export default async ({ params }) => {
+export default async ({ params }: any) => {
   const id = params.id;
   const tournamentRequest = await Tournaments.aggregate([
     {

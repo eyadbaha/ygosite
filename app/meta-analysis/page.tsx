@@ -1,29 +1,23 @@
 import getMatchups from "../utils/getMatchups";
 
-function getSortedUniqueNames(matches) {
-  const uniqueNamesArray = Array.from(
-    new Set(Object.keys(matches).concat(Object.keys(matches).flatMap((source) => Object.keys(matches[source]))))
-  ).sort((a, b) => {
-    const totalMatchesA = Object.values(matches[a] || {}).reduce(
-      (total, opponent) => total + opponent.win + opponent.lose,
-      0
-    );
+function getSortedUniqueNames(matches: any) {
+  const uniqueNamesArray = Array.from(new Set(Object.keys(matches).concat(Object.keys(matches).flatMap((source) => Object.keys(matches[source]))))).sort(
+    (a, b) => {
+      const totalMatchesA = Object.values(matches[a] || {}).reduce((total, opponent: any) => total + opponent.win + opponent.lose, 0) as number;
 
-    const totalMatchesB = Object.values(matches[b] || {}).reduce(
-      (total, opponent) => total + opponent.win + opponent.lose,
-      0
-    );
+      const totalMatchesB = Object.values(matches[b] || {}).reduce((total, opponent: any) => total + opponent.win + opponent.lose, 0) as number;
 
-    return totalMatchesB - totalMatchesA;
-  });
+      return totalMatchesB - totalMatchesA;
+    }
+  );
 
   return uniqueNamesArray;
 }
 
-function DiagonalTable({ matches }) {
+function DiagonalTable({ matches }: any) {
   const sortedNames = getSortedUniqueNames(matches);
 
-  const calculateWinRate = (source, target) => {
+  const calculateWinRate = (source: any, target: any) => {
     if (source === target) {
       return "-";
     }

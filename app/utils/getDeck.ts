@@ -1,9 +1,8 @@
 import Deck from "../models/Deck";
 import Skill from "../models/Skill";
-import { getOcgCard } from "./getOcgCard";
-import { SkillProps } from "../components/Skill";
 import dbConnect from "../utils/dbConnect";
 import mongoose from "mongoose";
+import { getCard } from "./getCard";
 
 export const getDeck = async (id: string) => {
   try {
@@ -25,9 +24,9 @@ export const getDeck = async (id: string) => {
           };
         }
       }
-      const mainDeck: any[] = (await Promise.all(deck.mainDeck?.map((id) => getOcgCard(id)))) || [];
-      const extraDeck: any[] = deck.extraDeck ? await Promise.all(deck.extraDeck?.map((id) => getOcgCard(id))) : [];
-      const sideDeck: any[] = deck.sideDeck ? await Promise.all(deck.sideDeck?.map((id) => getOcgCard(id))) : [];
+      const mainDeck: any[] = (await Promise.all(deck.mainDeck?.map((id) => getCard(id)))) || [];
+      const extraDeck: any[] = deck.extraDeck ? await Promise.all(deck.extraDeck?.map((id) => getCard(id))) : [];
+      const sideDeck: any[] = deck.sideDeck ? await Promise.all(deck.sideDeck?.map((id) => getCard(id))) : [];
       return { ...deck, mainDeck, extraDeck, sideDeck, skill };
     }
     return null;

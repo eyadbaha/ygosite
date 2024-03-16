@@ -5,31 +5,15 @@ import { useRef, MouseEvent, useEffect } from "react";
 
 const navbarList = [
   {
-    name: "Game Settings",
-    link: "card",
-  },
-  {
-    name: "Help",
-    link: "#",
-  },
-  {
-    name: "Forbidden/Limited",
-    link: "#",
-  },
-  {
-    name: "Deck Edit Tester (dev)",
-    link: "/deck-edit",
-  },
-  {
-    name: "SPEED Report Example (dev)",
+    name: "SPEED Report Example",
     link: "/speed",
   },
   {
-    name: "RUSH Report Example (dev)",
+    name: "RUSH Report Example",
     link: "/rush",
   },
 ];
-export default () => {
+export default (props: { avatar: { avatar: string; link: string } }) => {
   const navbarRef = useRef<HTMLDivElement>(null);
   const blurRef = useRef<HTMLDivElement>(null);
   const toggleNavbar = (e: MouseEvent<SVGSVGElement | HTMLDivElement>) => {
@@ -64,6 +48,17 @@ export default () => {
     <>
       <div className="top-0 left-0 fixed w-full h-[60px] bg-black flex gap-[1em] items-center pl-4 z-[2]">
         <NavButtons />
+        <div className="h-full w-24 absolute right-0 flex items-center">
+          <a href={props.avatar.link} className="relative h-[80%] my-auto w-full cursor-pointer flex items-center justify-center">
+            <div
+              style={{
+                backgroundImage: `url('${props.avatar.avatar}')`,
+              }}
+              className="h-[87%] absolute hexagon bg-cover bg-center  bg-no-repeat"
+            />
+            <img src="/img/avatar-frames/link.png" className="h-full absolute" />
+          </a>
+        </div>
       </div>
       <div
         className="fixed w-screen h-screen top-0 left-0 backdrop-blur-sm transition-opacity scale-0 duration-500 opacity-0 z-[2]"
