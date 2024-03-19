@@ -15,7 +15,7 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 const KafuTechnoStd = localFont({
-  src: "./fonts/FOT-KafuTechnoStd-H.otf",
+  src: "./fonts/FOT-KafuTechnoStd-H.woff2",
   variable: "--font-KafuTechnoStd",
 });
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
@@ -31,8 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   };
   try {
     const token = cookies().get("ACCESS_TOKEN");
-    const user =
-      token && ACCESS_TOKEN_SECRET ? (jwt.verify(token.value, ACCESS_TOKEN_SECRET) as JwtPayload) : undefined;
+    const user = token && ACCESS_TOKEN_SECRET ? (jwt.verify(token.value, ACCESS_TOKEN_SECRET) as JwtPayload) : undefined;
     if (user?.id && user?.id) {
       avatarProps.avatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}?size=1024`;
       avatarProps.link = "/api/auth/discord/logout";
