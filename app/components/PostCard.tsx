@@ -9,6 +9,7 @@ type PostCardProps = {
   link: string;
   tags?: tagsType[];
 };
+const IMAGE_SERVER = process.env.NEXT_PUBLIC_IMAGE_SERVER;
 export default (props: PostCardProps) => {
   return (
     <>
@@ -17,19 +18,12 @@ export default (props: PostCardProps) => {
           <div className="relative w-full h-2/3">
             <div className="absolute grid grid-cols-4 w-full h-full gap-1 p-2 ">
               {props.tags?.map((tag) => (
-                <Image
-                  src={`/img/icons/${tag}.png`}
-                  alt={props.title}
-                  width={500}
-                  height={500}
-                  quality={100}
-                  className=""
-                />
+                <Image src={`/img/icons/${tag}.png`} alt={props.title} width={500} height={500} quality={100} className="" />
               ))}
             </div>
             <div className="master-duel-screen-texture" />
             <Image
-              src={props.imgSrc}
+              src={`${IMAGE_SERVER}${props.imgSrc}`}
               alt={props.title}
               width={500}
               height={500}

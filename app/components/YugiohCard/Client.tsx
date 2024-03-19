@@ -31,7 +31,7 @@ export default (props: YugiohCardProps) => {
       {props.rarity && (
         <FallbackImage
           className={`${!props.disableModal && "cursor-pointer"} w-1/3 self-end right-0`}
-          src={`/img/icons/${props.rarity}.png`}
+          src={`/img/icons/dl/${props.rarity}.png`}
           fallback={`/img/icons/UR.png`}
           alt=""
           width={100} // Default width
@@ -64,7 +64,7 @@ export default (props: YugiohCardProps) => {
                           {props.rarity && (
                             <FallbackImage
                               className="self-end w-1/3"
-                              src={`/img/icons/${props.rarity}.png`}
+                              src={`/img/icons/dl/${props.rarity}.png`}
                               fallback={`/img/icons/UR.png`}
                               alt=""
                               width={100}

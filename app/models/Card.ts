@@ -7,7 +7,10 @@ const CardSetSchema = new mongoose.Schema({
 
 const CardSchema = new mongoose.Schema(
   {
-    id: Number,
+    id: {
+      type: Number,
+      index: true,
+    },
     name: String,
     desc: String,
     attribute: { type: String, enum: Attributes }, // Enum validation for attribute

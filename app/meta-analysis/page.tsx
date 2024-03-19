@@ -37,7 +37,7 @@ function DiagonalTable({ matches }: any) {
           {sortedNames.map((name, index) => (
             <th key={index}>
               <img
-                src={`/img/decks/${name.toLowerCase()}.webp`}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER}/decks/${name.toLowerCase()}.webp`}
                 alt={`Deck ${name}`}
                 width="50" // Set the desired width
                 height="50" // Set the desired height
@@ -51,7 +51,7 @@ function DiagonalTable({ matches }: any) {
           <tr key={rowIndex}>
             <th key={source}>
               <img
-                src={`/img/decks/${source.toLowerCase()}.webp`}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER}/decks/${source.toLowerCase()}.webp`}
                 alt={`Deck ${source}`}
                 width="50" // Set the desired width
                 height="50" // Set the desired height
