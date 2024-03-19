@@ -22,14 +22,7 @@ export default (props: MainListSectionProps) => {
         {props.list?.map((content, index) => (
           <Link href={content.link} className="group" key={index}>
             <li className="h-14 flex items-center bg-zinc-200 hover:bg-zinc-300 border-b-black border-b-[1px] group-last:border-0">
-              <Image
-                src={`/img/icons/${content.tag}.png`}
-                alt={content.tag}
-                width={100}
-                height={100}
-                quality={100}
-                className="h-auto w-1/6 p-1"
-              />
+              <Image src={`/img/icons/${content.tag}.webp`} alt={content.tag} width={100} height={100} quality={100} className="h-auto w-1/6 p-1" />
               <div className="w-4/5">
                 <p className="font-medium text-base 2xl:text-lg truncate">{content.text}</p>
                 <p>

@@ -18,7 +18,7 @@ export default (props: PostCardProps) => {
           <div className="relative w-full h-2/3">
             <div className="absolute grid grid-cols-4 w-full h-full gap-1 p-2 ">
               {props.tags?.map((tag) => (
-                <Image src={`/img/icons/${tag}.png`} alt={props.title} width={500} height={500} quality={100} className="" />
+                <Image src={`/img/icons/${tag}.webp`} alt={props.title} width={500} height={500} quality={100} className="" />
               ))}
             </div>
             <div className="master-duel-screen-texture" />
