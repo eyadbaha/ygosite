@@ -10,6 +10,12 @@ module.exports = {
         port: "",
         pathname: "/eyadbaha/card-arts/main/**",
       },
+      {
+        protocol: "https",
+        hostname: "wsrv.nl",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };

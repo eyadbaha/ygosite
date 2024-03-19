@@ -57,14 +57,14 @@ export default async () => {
           <div className="grid grid-cols-3">
             <div className="flex flex-col col-span-3 gap-5">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                <NavCard title="Tier List" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/tier-list.png`} link="#" />
-                <NavCard title="Articles" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/articles.png`} link="#" />
-                <NavCard title="Database" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/database.png`} link="#" />
-                <NavCard title="Tournaments/Events" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/tournaments.png`} link="#" />
-                <NavCard title="Organize an Event" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/event-organize.png`} link="#" pc />
-                <NavCard title="Meta Analysis" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/meta-analysis.png`} link="#" />
-                <NavCard title="Extras" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/extras.png`} link="#" />
-                <NavCard title="Settings" subText="Updated 2 hours ago" imgSrc={`${IMAGE_SERVER}/menu-icons/settings.png`} link="#" pc />
+                <NavCard title="Tier List" subText="Updated 2 hours ago" imgSrc={`/menu-icons/tier-list.png`} link="#" />
+                <NavCard title="Articles" subText="Updated 2 hours ago" imgSrc={`/menu-icons/articles.png`} link="#" />
+                <NavCard title="Database" subText="Updated 2 hours ago" imgSrc={`/menu-icons/database.png`} link="#" />
+                <NavCard title="Tournaments/Events" subText="Updated 2 hours ago" imgSrc={`/menu-icons/tournaments.png`} link="#" />
+                <NavCard title="Organize an Event" subText="Updated 2 hours ago" imgSrc={`/menu-icons/event-organize.png`} link="#" pc />
+                <NavCard title="Meta Analysis" subText="Updated 2 hours ago" imgSrc={`/menu-icons/meta-analysis.png`} link="#" />
+                <NavCard title="Extras" subText="Updated 2 hours ago" imgSrc={`/menu-icons/extras.png`} link="#" />
+                <NavCard title="Settings" subText="Updated 2 hours ago" imgSrc={`/menu-icons/settings.png`} link="#" pc />
               </div>
               <div className="text-title text-responsive-1">Posts</div>
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">

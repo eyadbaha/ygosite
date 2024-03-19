@@ -39,7 +39,7 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
           <path d="M16.417 9.583A7.917 7.917 0 1 1 8.5 1.666a7.917 7.917 0 0 1 7.917 7.917zm-2.967-3.47a.792.792 0 0 0-.792-.792H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.791zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792z" />
         </svg>
         <Link href={"/"}>
-          <img src="/img/logo.svg" className="h-[45px] w-auto" />
+          <img src="/img/logo.svg" className="h-[45px] w-auto" alt="Logo" />
         </Link>
       </>
     );
@@ -56,7 +56,7 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
               }}
               className="h-[87%] absolute hexagon bg-cover bg-center  bg-no-repeat"
             />
-            <img src="/img/avatar-frames/link.png" className="h-full absolute" />
+            <img src="/img/avatar-frames/link.png" className="h-full absolute" alt="Profile Frame" />
           </a>
         </div>
       </div>
@@ -75,11 +75,12 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
           </div>
           <ul className="w-4/5">
             {navbarList.map((navItem) => (
-              <Link href={navItem.link} key={navItem.name}>
-                <li className="box-border text-white text-[14px] font-[500] bg-[#173446] border-l-[3px] border-md-lime place-self-center p-3 mx-5 my-3 hover:shadow-md-box hover:border-[3px] hover:py-[0.625em] hover:animate-border-pulse">
-                  {navItem.name}
-                </li>
-              </Link>
+              <li
+                key={navItem.name}
+                className="box-border text-white text-[14px] font-[500] bg-[#173446] border-l-[3px] border-md-lime place-self-center p-3 mx-5 my-3 hover:shadow-md-box hover:border-[3px] hover:py-[0.625em] hover:animate-border-pulse"
+              >
+                <Link href={navItem.link}>{navItem.name}</Link>
+              </li>
             ))}
           </ul>
         </div>

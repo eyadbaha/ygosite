@@ -23,11 +23,10 @@ export default (props: PostCardProps) => {
             </div>
             <div className="master-duel-screen-texture" />
             <Image
-              src={`${IMAGE_SERVER}${props.imgSrc}`}
+              src={`https://wsrv.nl/?url=${IMAGE_SERVER}${props.imgSrc}&w=408&h=204&fit=cover&a=top&q=75&output=webp`}
               alt={props.title}
-              width={500}
-              height={500}
-              quality={100}
+              width={408}
+              height={204}
               className="object-cover object-top w-full h-full self-start aspect-[2/1]"
             />
           </div>

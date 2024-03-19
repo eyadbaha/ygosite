@@ -21,6 +21,7 @@
     "react-markdown": "^9.0.1",
     "typescript": "^5.4.2",
     "unist-util-visit": "^5.0.0",
+    "sharp": "^0.33.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -32,7 +33,6 @@
     "eslint-config-prettier": "8.8.0",
     "postcss": "^8.4.21",
     "prettier": "2.8.7",
-    "sharp": "^0.33.2",
     "tailwindcss": "^3.2.7"
   }
 }

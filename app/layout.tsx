@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+        <script src="https://kit.fontawesome.com/eaf26e6693.js" async />
         {/* <script src="/lib/createjs.min.js" async />
         <script src="/lib/particlejs.min.js" async /> */}
       </head>
