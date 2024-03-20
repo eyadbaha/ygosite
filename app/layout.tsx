@@ -41,8 +41,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <head>
         <script src="https://kit.fontawesome.com/eaf26e6693.js" async />
-        {/* <script src="/lib/createjs.min.js" async />
-        <script src="/lib/particlejs.min.js" async /> */}
       </head>
       <ModalContextProvider>
         <body className={`min-h-[100vh] ${roboto.variable} ${KafuTechnoStd.variable}`}>

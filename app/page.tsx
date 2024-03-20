@@ -69,9 +69,9 @@ export default async () => {
               <div className="text-title text-responsive-1">Posts</div>
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {posts.map((post) => (
-                  <>
+                  <div key={post.title}>
                     <PostCard title={post.title} time={post.time} imgSrc={post.imgSrc} link={post.link} tags={post.tags} />
-                  </>
+                  </div>
                 ))}
               </div>
             </div>

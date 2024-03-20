@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef, MouseEvent, useEffect } from "react";
 
 const navbarList = [
@@ -39,7 +40,7 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
           <path d="M16.417 9.583A7.917 7.917 0 1 1 8.5 1.666a7.917 7.917 0 0 1 7.917 7.917zm-2.967-3.47a.792.792 0 0 0-.792-.792H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.791zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792z" />
         </svg>
         <Link href={"/"}>
-          <img src="/img/logo.svg" className="h-[45px] w-auto" alt="Logo" />
+          <Image src="/img/logo.svg" alt="Logo" width={90} height={32} />
         </Link>
       </>
     );
@@ -56,7 +57,7 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
               }}
               className="h-[87%] absolute hexagon bg-cover bg-center  bg-no-repeat"
             />
-            <img src="/img/avatar-frames/link.png" className="h-full absolute" alt="Profile Frame" />
+            <img src="/img/avatar-frames/link.webp" className="h-full absolute" alt="Profile Frame" />
           </a>
         </div>
       </div>

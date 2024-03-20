@@ -3,6 +3,7 @@ import Skill from "../models/Skill";
 import dbConnect from "../utils/dbConnect";
 import mongoose from "mongoose";
 import { getCard } from "./getCard";
+import Card from "@/app/models/Card";
 
 export const getDeck = async (id: string) => {
   try {
@@ -24,9 +25,24 @@ export const getDeck = async (id: string) => {
           };
         }
       }
-      const mainDeck: any[] = (await Promise.all(deck.mainDeck?.map((id) => getCard(id)))) || [];
-      const extraDeck: any[] = deck.extraDeck ? await Promise.all(deck.extraDeck?.map((id) => getCard(id))) : [];
-      const sideDeck: any[] = deck.sideDeck ? await Promise.all(deck.sideDeck?.map((id) => getCard(id))) : [];
+      const mainDeckRequest: any[] = await Card.find({ id: { $in: deck.mainDeck } }, { _id: 0 }).lean();
+      const extraDeckRequest: any[] = await Card.find({ id: { $in: deck.extraDeck } }, { _id: 0 }).lean();
+      const sideDeckRequest: any[] = await Card.find({ id: { $in: deck.sideDeck } }, { _id: 0 }).lean();
+      const mainDeck = mainDeckRequest
+        .map((card) => {
+          return Array.from({ length: (deck.mainDeck as number[]).filter((item) => item === card.id).length }, () => card);
+        })
+        .flat();
+      const extraDeck = extraDeckRequest
+        .map((card) => {
+          return Array.from({ length: (deck.extraDeck as number[])?.filter((item) => item === card.id).length } || 0, () => card);
+        })
+        .flat();
+      const sideDeck = sideDeckRequest
+        .map((card) => {
+          return Array.from({ length: (deck.sideDeck as number[])?.filter((item) => item === card.id).length } || 0, () => card);
+        })
+        .flat();
       return { ...deck, mainDeck, extraDeck, sideDeck, skill };
     }
     return null;

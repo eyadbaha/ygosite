@@ -18,21 +18,23 @@ export default (props: PostCardProps) => {
           <div className="relative w-full h-2/3">
             <div className="absolute grid grid-cols-4 w-full h-full gap-1 p-2 ">
               {props.tags?.map((tag) => (
-                <Image src={`/img/icons/${tag}.webp`} alt={props.title} width={500} height={500} quality={100} className="" />
+                <div key={tag}>
+                  <Image src={`/img/icons/${tag}.webp`} alt={tag} width={95} height={45} quality={75} loading="eager" />
+                </div>
               ))}
             </div>
-            <div className="master-duel-screen-texture" />
             <Image
               src={`https://wsrv.nl/?url=${IMAGE_SERVER}${props.imgSrc}&w=408&h=204&fit=cover&a=top&q=75&output=webp`}
               alt={props.title}
               width={408}
               height={204}
+              loading="eager"
               className="object-cover object-top w-full h-full self-start aspect-[2/1]"
             />
           </div>
           <div className="p-2">
             <p className="text-slate-200 text-responsive-2">
-              <i className="fas fa-clock mr-1"></i>
+              <i aria-hidden className="fas fa-clock mr-1"></i>
               {props.time}
             </p>
             <p className="text-title text-responsive-2 text-slate-300">{props.title}</p>
