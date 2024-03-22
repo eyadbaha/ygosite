@@ -8,7 +8,13 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 export default async function middleware(req: NextRequest, res: NextResponse) {
-  if (req.nextUrl.pathname.includes("/card") || req.nextUrl.pathname.includes("/article-edit") || req.nextUrl.pathname.includes("/deck-edit")) {
+  if (
+    req.nextUrl.pathname.includes("/card") ||
+    req.nextUrl.pathname.includes("/article-edit") ||
+    req.nextUrl.pathname.includes("/deck-edit") ||
+    req.nextUrl.pathname.includes("/tournament-edit") ||
+    req.nextUrl.pathname.includes("/meta-analysis")
+  ) {
     const url = req.nextUrl;
     url.pathname = `/404`;
     return NextResponse.rewrite(url);
@@ -27,5 +33,5 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: ["/", "/card/:path*", "/article-edit/:path*", "/deck-edit/:path*"],
+  matcher: ["/", "/card/:path*", "/article-edit/:path*", "/deck-edit/:path*", "/tournament-edit/:path*", "/meta-analysis/:path*"],
 };
