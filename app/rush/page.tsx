@@ -1,5 +1,6 @@
 import { Deck } from "../components/Deck";
 import { getDeck } from "../utils/getDeck";
+import { unstable_cache } from "next/cache";
 
 export default async () => {
   const deck = await getDeck("65f712dc47d99108a5b47c87");

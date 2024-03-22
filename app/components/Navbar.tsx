@@ -39,8 +39,8 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
           <rect width="50" height="50" fill="none" />
           <path d="M16.417 9.583A7.917 7.917 0 1 1 8.5 1.666a7.917 7.917 0 0 1 7.917 7.917zm-2.967-3.47a.792.792 0 0 0-.792-.792H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.791zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792zm0 3.487a.792.792 0 0 0-.792-.791H4.342a.792.792 0 1 0 0 1.583h8.316a.792.792 0 0 0 .792-.792z" />
         </svg>
-        <Link href={"/"}>
-          <Image src="/img/logo.svg" alt="Logo" width={90} height={32} />
+        <Link href={"/"} prefetch={false}>
+          <Image src="/img/logo.svg" alt="Logo" width={90} height={32} style={{ width: "90px", height: "32px" }} />
         </Link>
       </>
     );
@@ -70,17 +70,18 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
         ref={navbarRef}
         className="flex flex-col fixed transition duration-300 translate-x-[-100%] top-0 left-0 w-full lg:w-[650px] h-screen bg-gradient-to-r from-[#081f30] to-[#05090f] z-[2]"
       >
-        <div className="h-full master-duel-screen-texture">
+        <div className="h-full master-duel-screen-texture" onClick={(e) => toggleNavbar(e)}>
           <div className="flex h-[60px] gap-[1em] items-center pl-4">
             <NavButtons />
           </div>
           <ul className="w-4/5">
             {navbarList.map((navItem) => (
-              <li
-                key={navItem.name}
-                className="box-border text-white text-[14px] font-[500] bg-[#173446] border-l-[3px] border-md-lime place-self-center p-3 mx-5 my-3 hover:shadow-md-box hover:border-[3px] hover:py-[0.625em] hover:animate-border-pulse"
-              >
-                <Link href={navItem.link}>{navItem.name}</Link>
+              <li key={navItem.name}>
+                <Link href={navItem.link}>
+                  <div className="box-border text-white text-[14px] font-[500] bg-[#173446] border-l-[3px] border-md-lime place-self-center p-3 mx-5 my-3 hover:shadow-md-box hover:border-[3px] hover:py-[0.625em] hover:animate-border-pulse">
+                    {navItem.name}
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>

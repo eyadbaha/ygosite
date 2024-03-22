@@ -1,10 +1,10 @@
+"use client";
 import Image from "next/image";
 import YugiohCard, { YugiohCardProps } from "./YugiohCard/Client";
 import FallbackImage from "./FallbackImage";
 import { Skill, SkillProps } from "./Skill";
-import { HTMLProps } from "react";
+import { HTMLProps, useEffect } from "react";
 import { YugiohCardType } from "../types/YugiohCard";
-
 type RushDeckProps = {
   //deckType: string;
   mainDeck: YugiohCardType[];
@@ -73,8 +73,8 @@ export const Deck = (props: RushDeckProps) => {
             <div className="grid grid-cols-6 grid-rows-5 w-full p-3 pb-0">
               <div className="col-start-1 row-start-1 col-span-1 row-span-4">
                 <FallbackImage
-                  src={`/img/characters/${props.skill.character}.png`}
-                  fallback="/img/characters/UnknownCharater.png"
+                  src={`/img/characters/${props.skill.character || "UnknownCharater"}.webp`}
+                  fallback="/img/characters/UnknownCharater.webp"
                   alt="Character"
                   width={100}
                   height={100}

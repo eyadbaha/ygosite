@@ -21,7 +21,7 @@ export default (props: navCardProps) => {
             height={170}
             quality={70}
             loading="eager"
-            className="object-cover object-top w-full h-full min-w-full min-h-full self-start"
+            className="object-cover object-top self-start"
           />
           <div className="absolute w-full py-2 h-content bottom-0 bg-black/50">
             <p style={{ textShadow: "2px 2px 2px black" }} className="text-title text-responsive-2 px-2 truncate">

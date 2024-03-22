@@ -29,7 +29,7 @@ export default (props: PostCardProps) => {
               width={408}
               height={204}
               loading="eager"
-              className="object-cover object-top w-full h-full self-start aspect-[2/1]"
+              className="object-cover object-top self-start aspect-[2/1]"
             />
           </div>
           <div className="p-2">

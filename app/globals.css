@@ -76,7 +76,7 @@ img {
     @apply text-lg md:text-2xl lg:text-3xl;
   }
   .text-responsive-2 {
-    @apply text-xs md:text-sm;
+    @apply text-[8px] sm:text-sm;
   }
   .markdown h1,
   h2,

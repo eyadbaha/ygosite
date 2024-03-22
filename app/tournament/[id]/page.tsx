@@ -2,6 +2,9 @@ import Tournaments from "@/app/models/Tournaments";
 import { Deck as DeckComponent } from "../../components/Deck";
 import mongoose from "mongoose";
 import { getDeck } from "@/app/utils/getDeck";
+import { getTournament } from "@/app/utils/getTournament";
+import { notFound } from "next/navigation";
+
 function formatPlacementNumber(placement: number) {
   if (placement === 1) {
     return "1st Place";
@@ -18,75 +21,40 @@ function formatPlacementNumber(placement: number) {
 }
 
 export default async ({ params }: any) => {
-  const id = params.id;
-  const tournamentRequest = await Tournaments.aggregate([
-    {
-      $match: {
-        _id: new mongoose.Types.ObjectId(id),
-      },
-    },
-    {
-      $unwind: "$brackets.players",
-    },
-    {
-      $lookup: {
-        from: "players",
-        localField: "brackets.players.id",
-        foreignField: "id",
-        as: "playerDetails",
-      },
-    },
-    {
-      $unwind: "$playerDetails",
-    },
-    {
-      $group: {
-        _id: "$_id",
-        title: { $first: "$title" }, // Preserve the title using $first
-        players: {
-          $push: {
-            $mergeObjects: [
-              "$brackets.players",
-              {
-                id: "$playerDetails.id",
-                type: "$playerDetails.type",
-                discordID: "$playerDetails.discordID",
-                name: "$playerDetails.name",
-                // Include other fields from playersDetails if needed
-              },
-            ],
-          },
-        },
-        // Include other fields you want to keep at the top level
-      },
-    },
-  ]);
-  const tournament = tournamentRequest[0];
-  const players: any[] = [...tournament?.players];
-  for (let i = 0; i < players.length; i++) {
-    if (players[i].deck) {
-      const deck = await getDeck(players[i].deck.toString());
-      players[i] = { name: players[i].name, place: players[i].place, deck };
-    }
-  }
-  return (
-    <>
-      <p>{tournament.title}</p>
-      {players?.map((player: any) => {
-        return (
-          <>
-            {player.deck && (
+  try {
+    const id = params.id;
+    const tournamentRequest = await getTournament(id);
+    if (tournamentRequest?.length) {
+      const tournament = tournamentRequest[0];
+      const players: any[] = [...tournament?.players];
+      for (let i = 0; i < players.length; i++) {
+        if (players[i].deck) {
+          const deck = await getDeck(players[i].deck.toString());
+          players[i] = { name: players[i].name, place: players[i].place, deck };
+        }
+      }
+      return (
+        <>
+          <p>{tournament.title}</p>
+          {players?.map((player: any) => {
+            return (
               <>
-                <p className="text-white text-responsive-1 font-KafuTechnoStd">
-                  {formatPlacementNumber(player.place)}: {player.name}
-                </p>
-                <br />
-                <DeckComponent {...player.deck} format="SPEED" />
+                {player.deck && (
+                  <>
+                    <p className="text-white text-responsive-1 font-KafuTechnoStd">
+                      {formatPlacementNumber(player.place)}: {player.name}
+                    </p>
+                    <br />
+                    <DeckComponent {...player.deck} format="SPEED" />
+                  </>
+                )}
               </>
-            )}
-          </>
-        );
-      })}
-    </>
-  );
+            );
+          })}
+        </>
+      );
+    }
+  } catch (err) {
+    return notFound();
+  }
 };
