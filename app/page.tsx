@@ -40,7 +40,7 @@ export default async () => {
   await dbConnect();
   const currentDate = new Date();
   const result = await Tournaments.find({ date: { $gt: currentDate } })
-    .sort({ date: 1 })
+    .sort("date")
     .lean();
   const tournaments = result.map((e: any) => {
     return {

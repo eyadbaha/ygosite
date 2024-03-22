@@ -20,7 +20,7 @@ const FetchDiscordUserInfo = async (code: string) => {
         client_secret: clientSecret,
         grant_type: "authorization_code",
         code,
-        redirect_uri: "http://localhost:3000/api/auth/discord/redirect",
+        redirect_uri: "https://ygosite.vercel.app/api/auth/discord/redirect",
       },
       {
         headers: {
@@ -35,22 +35,15 @@ const FetchDiscordUserInfo = async (code: string) => {
       },
     });
     const user = userResponse.data;
-    const userInDatabase = await UserModel.findOne({ discordId: user.id });
-    if (!userInDatabase) {
-      UserModel.create({ discordId: user.id, name: user["global_name"], avatar: user.avatar || "", roles: [] });
-    } else if (userInDatabase.roles) {
-      user.roles = userInDatabase.roles;
-    }
-    const access = jwt.sign(
-      { id: user.id, avatar: user.avatar, name: user["global_name"], roles: user.roles || [] },
-      ACCESS_TOKEN_SECRET,
-      { expiresIn: "1d" }
-    );
-    const refresh = jwt.sign(
-      { id: user.id, avatar: user.avatar, name: user["global_name"], roles: user.roles || [] },
-      REFRESH_TOKEN_SECRET
-    );
-    RefreshTokenModel.create({ discordId: user.id, token: refresh });
+    // const userInDatabase = await UserModel.findOne({ discordId: user.id });
+    // if (!userInDatabase) {
+    //   UserModel.create({ discordId: user.id, name: user["global_name"], avatar: user.avatar || "", roles: [] });
+    // } else if (userInDatabase.roles) {
+    //   user.roles = userInDatabase.roles;
+    // }
+    const access = jwt.sign({ id: user.id, avatar: user.avatar, name: user["global_name"], roles: user.roles || [] }, ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+    const refresh = jwt.sign({ id: user.id, avatar: user.avatar, name: user["global_name"], roles: user.roles || [] }, REFRESH_TOKEN_SECRET);
+    // RefreshTokenModel.create({ discordId: user.id, token: refresh });
     return { access, refresh };
   } catch (error) {
     console.error("Error exchanging code for token:", error);
