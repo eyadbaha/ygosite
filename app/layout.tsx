@@ -25,9 +25,9 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const avatarProps = {
+  const avatarProps: { avatar: string; link: string | null } = {
     avatar: "https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg",
-    link: "https://discord.com/api/oauth2/authorize?client_id=1156631683794219118&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fdiscord%2Fredirect&scope=identify",
+    link: null,
   };
   try {
     const token = cookies().get("ACCESS_TOKEN");

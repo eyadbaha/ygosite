@@ -74,12 +74,12 @@ const Clickable = (props: YugiohCardProps) => {
                         <span className="col-span-2">{`[${card.types.join("/")}]`}</span>
                         {"legend" in card && card.legend && <span className="col-span-2 text-orange-400">LEGEND</span>}
                         <span
-                          className="font-roboto col-span-4 row-span-6 sm:max-sm:text-xs"
+                          className="font-roboto col-span-4 row-span-6 sm:max-md:text-xs"
                           dangerouslySetInnerHTML={{ __html: convertTextToHTML(card.desc) }}
                         ></span>
-                        <Link href={`/card/${card.id}`} className="col-span-2 col-start-1 justify-self-end self-end w-full text-blue-500">
+                        {/* <Link href={`/card/${card.id}`} className="col-span-2 col-start-1 justify-self-end self-end w-full text-blue-500">
                           More info...
-                        </Link>
+                        </Link> */}
                         {"maxAtk" in card && (
                           <p className="col-span-1 col-start-2 justify-self-end self-end w-full text-end">MaxATK/{card.maxAtk == -1 ? "?" : card.maxAtk}</p>
                         )}

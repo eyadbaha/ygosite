@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRef, MouseEvent, useEffect } from "react";
+import { useRef, MouseEvent, useEffect, useState } from "react";
 
 const navbarList = [
   {
@@ -14,7 +14,7 @@ const navbarList = [
     link: "/rush",
   },
 ];
-export default (props: { avatar: { avatar: string; link: string } }) => {
+export default (props: { avatar: { avatar: string; link: string | null } }) => {
   const navbarRef = useRef<HTMLDivElement>(null);
   const blurRef = useRef<HTMLDivElement>(null);
   const toggleNavbar = (e: MouseEvent<SVGSVGElement | HTMLDivElement>) => {
@@ -23,6 +23,14 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
     blurRef.current?.classList.toggle("scale-0");
     navbarRef.current?.classList.toggle("translate-x-[-100%]");
   };
+  const [avatarLink, setAvatarLink] = useState(props.avatar.link);
+  useEffect(() => {
+    if (window && !props.avatar.link) {
+      setAvatarLink(
+        `https://discord.com/oauth2/authorize?client_id=1156631683794219118&response_type=code&redirect_uri=${window.location.protocol}//${window.location.host}%2Fapi%2Fauth%2Fdiscord%2Fredirect&scope=identify`
+      );
+    }
+  }, []);
   const NavButtons = () => {
     return (
       <>
@@ -50,7 +58,7 @@ export default (props: { avatar: { avatar: string; link: string } }) => {
       <div className="top-0 left-0 fixed w-full h-[60px] bg-black flex gap-[1em] items-center pl-4 z-[2]">
         <NavButtons />
         <div className="h-full w-24 absolute right-0 flex items-center">
-          <a href={props.avatar.link} className="relative h-[80%] my-auto w-full cursor-pointer flex items-center justify-center">
+          <a href={avatarLink || ""} className="relative h-[80%] my-auto w-full cursor-pointer flex items-center justify-center">
             <div
               style={{
                 backgroundImage: `url('${props.avatar.avatar}')`,
