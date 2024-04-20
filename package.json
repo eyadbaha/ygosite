@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apexcharts": "^3.48.0",
     "axios": "^1.6.7",
+    "chart.js": "^4.4.2",
     "critters": "^0.0.22",
     "cssnano": "^6.1.0",
+    "d3": "^7.9.0",
     "eslint": "8.36.0",
     "eslint-config-next": "^13.2.4",
     "hast-util-to-string": "^3.0.0",
@@ -19,6 +22,8 @@
     "mongoose": "^6.12.3",
     "next": "^14.0.2",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^9.0.1",
     "sharp": "^0.33.2",
@@ -27,6 +32,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/d3": "^7.4.3",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "18.15.3",
     "@types/react": "^18.2.66",

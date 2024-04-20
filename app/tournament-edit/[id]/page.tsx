@@ -29,8 +29,15 @@ export default ({ params }: any) => {
     fetchDecks();
   }, []);
   const deckTypes = [
+    "Sky Striker",
+    "Zombie",
+    "Tech Genus",
+    "Blue-Eyes",
     "Tachyon",
     "Shiranui",
+    "Kozmo",
+    "Evil Eye",
+    "Gladiator Beast",
     "Galaxy-Eyes",
     "Infinitrack",
     "Constellar",
@@ -64,11 +71,12 @@ export default ({ params }: any) => {
   ];
   return (
     <>
+      <p>{tournament?.title}</p>
       {tournament?.players && (
         <div>
           {tournament?.players.map((player: any, index: number) => (
             <div>
-              {player.name}
+              {player.name}/{player.id}
               <select
                 className={"text-black"}
                 onChange={(e) => {

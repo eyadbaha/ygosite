@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   // const currentDate = new Date();
   //const result = await Tournaments.find({ date: { $gt: currentDate } }).lean()
   if (!isValidObjectId(query._id) && query._id) return new Response(JSON.stringify(null));
-  const result = await Tournaments.find(query, { brackets: 0 }).lean();
+  const result = await Tournaments.find(query, { brackets: 0 }).sort({ date: -1 }).lean();
   if (!result.length) return new Response(JSON.stringify(null));
 
   if (id) {

@@ -77,9 +77,9 @@ const Clickable = (props: YugiohCardProps) => {
                           className="font-roboto col-span-4 row-span-6 sm:max-md:text-xs"
                           dangerouslySetInnerHTML={{ __html: convertTextToHTML(card.desc) }}
                         ></span>
-                        {/* <Link href={`/card/${card.id}`} className="col-span-2 col-start-1 justify-self-end self-end w-full text-blue-500">
+                        <Link href={`/card/${card.id}`} className="col-span-2 col-start-1 justify-self-end self-end w-full text-blue-500">
                           More info...
-                        </Link> */}
+                        </Link>
                         {"maxAtk" in card && (
                           <p className="col-span-1 col-start-2 justify-self-end self-end w-full text-end">MaxATK/{card.maxAtk == -1 ? "?" : card.maxAtk}</p>
                         )}

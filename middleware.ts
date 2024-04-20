@@ -15,9 +15,9 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
     req.nextUrl.pathname.includes("/tournament-edit") ||
     req.nextUrl.pathname.includes("/meta-analysis")
   ) {
-    const url = req.nextUrl;
-    url.pathname = `/404`;
-    return NextResponse.rewrite(url);
+    // const url = req.nextUrl;
+    // url.pathname = `/404`;
+    // return NextResponse.rewrite(url);
   }
   const Cookies = req.cookies;
   const access_token = Cookies.get("ACCESS_TOKEN");
