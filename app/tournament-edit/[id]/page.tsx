@@ -1,6 +1,91 @@
 "use client";
 import { useEffect, useState } from "react";
 
+const speedDeckTypes = [
+  "Sky Striker",
+  "Zombie",
+  "Tech Genus",
+  "Blue-Eyes",
+  "Tachyon",
+  "Shiranui",
+  "Kozmo",
+  "Evil Eye",
+  "Gladiator Beast",
+  "Galaxy-Eyes",
+  "Infinitrack",
+  "Constellar",
+  "Destiny HERO",
+  "Gunkan Suship",
+  "Lunalight",
+  "Shaddoll",
+  "Gearfried",
+  "Gimmick Puppet",
+  "Infernoid",
+  "Rose Dragon",
+  "Speedroid",
+  "Mayakashi",
+  "Tenyi",
+  "Yubel",
+  "Live☆Twin",
+  "S-Force",
+  "Trickstar",
+  "Black Luster Soldier",
+  "Salamangreat",
+  "Charmer",
+  "Rokket",
+  "Madolche",
+  "Abyss Actor",
+  "Altergeist",
+  "Blue-Eyes",
+  "Elemental HERO",
+  "Fossil",
+  "Synchron",
+  "Amazement",
+];
+const masterDeckTypes = [
+  "Rescue-ACE",
+  "Purrely",
+  "Snake-Eye",
+  "Tearlaments",
+  "Branded",
+  "Labrynth",
+  "Unchained",
+  "Mikanko",
+  "Chimera",
+  "Mathmech",
+  "Vanquish Soul",
+  "Mannadium",
+  "Superheavy Samurai",
+  "Dragon Link",
+  "Dinos",
+  "HERO",
+  "Spright",
+  "Plunder Patroll",
+  "Pendulum Magician",
+  "Kashtira",
+  "@Ignister",
+];
+const DeckOptions = (props: { format: string[] }) => {
+  if (props.format.includes("sd"))
+    return (
+      <>
+        {speedDeckTypes.map((type) => (
+          <option key={type} value={type}>
+            {type}
+          </option>
+        ))}
+      </>
+    );
+  return (
+    <>
+      {masterDeckTypes.map((type) => (
+        <option key={type} value={type}>
+          {type}
+        </option>
+      ))}
+    </>
+  );
+};
 export default ({ params }: any) => {
   const id = params.id;
   const [tournament, setTournament] = useState<any>(null);
@@ -28,47 +113,7 @@ export default ({ params }: any) => {
     fetchTournament();
     fetchDecks();
   }, []);
-  const deckTypes = [
-    "Sky Striker",
-    "Zombie",
-    "Tech Genus",
-    "Blue-Eyes",
-    "Tachyon",
-    "Shiranui",
-    "Kozmo",
-    "Evil Eye",
-    "Gladiator Beast",
-    "Galaxy-Eyes",
-    "Infinitrack",
-    "Constellar",
-    "Destiny HERO",
-    "Gunkan Suship",
-    "Lunalight",
-    "Shaddoll",
-    "Gearfried",
-    "Gimmick Puppet",
-    "Infernoid",
-    "Rose Dragon",
-    "Speedroid",
-    "Mayakashi",
-    "Tenyi",
-    "Yubel",
-    "Live☆Twin",
-    "S-Force",
-    "Trickstar",
-    "Black Luster Soldier",
-    "Salamangreat",
-    "Charmer",
-    "Rokket",
-    "Madolche",
-    "Abyss Actor",
-    "Altergeist",
-    "Blue-Eyes",
-    "Elemental HERO",
-    "Fossil",
-    "Synchron",
-    "Amazement",
-  ];
+
   return (
     <>
       <p>{tournament?.title}</p>
@@ -115,11 +160,7 @@ export default ({ params }: any) => {
                 <option key={"None"} value={"None"}>
                   None
                 </option>
-                {deckTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
+                <DeckOptions format={tournament.tags} />
               </select>
             </div>
           ))}

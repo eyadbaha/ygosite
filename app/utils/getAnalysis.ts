@@ -16,15 +16,15 @@ const DataTypeSchema = z.object({
 });
 export type DataType = z.infer<typeof DataTypeSchema>;
 
-export async function getMatchups(): Promise<DataType | null> {
+export async function getAnalysis(format: "sd" | "rd" | "md" | "tcg" | "ocg" | "rush"): Promise<DataType | null> {
   await dbConnect();
   try {
     const tournamentsWithBrackets = await Tournaments.find({
       brackets: { $exists: true, $ne: null },
       "brackets.players": { $elemMatch: { deckType: { $exists: true, $ne: null } } },
-      date: { $gte: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000) }, // Filter for last 30 days
+      date: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+      tags: { $in: [format] },
     }).select("brackets");
-
     const deckScores: Record<string, Record<string, { win: number; lose: number }>> = {};
     const deckWins: Record<string, number> = {};
     const deckTops: Record<string, number> = {};
@@ -35,7 +35,7 @@ export async function getMatchups(): Promise<DataType | null> {
         if (!deckWins[winningDeck]) deckWins[winningDeck] = 1;
         else deckWins[winningDeck] = deckWins[winningDeck] + 1;
       }
-      const topDecks = tournament.brackets.players.filter((player: any) => player.deckType && player.place <= 4).map((player: any) => player.deckType);
+      const topDecks = tournament.brackets.players.filter((player: any) => player.deckType && player.place <= 16).map((player: any) => player.deckType);
       topDecks.forEach((deck: string) => {
         if (!deckTops[deck]) deckTops[deck] = 1;
         else deckTops[deck] = deckTops[deck] + 1;
@@ -102,7 +102,7 @@ export async function getMatchups(): Promise<DataType | null> {
       }, {});
     const rates = Object.entries(deckWinRates)
       .filter((deck) => {
-        return deck[1].win + deck[1].lose > 10;
+        return deck[1].win + deck[1].lose > 15;
       })
       .sort((a, b) => {
         return b[1].win / (b[1].win + b[1].lose) - a[1].win / (a[1].win + a[1].lose);

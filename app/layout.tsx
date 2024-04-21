@@ -43,7 +43,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script src="https://kit.fontawesome.com/eaf26e6693.js" async />
       </head>
       <ModalContextProvider>
-        <body className={`min-h-[100vh] ${roboto.variable} ${KafuTechnoStd.variable}`}>
+        <body className={`min-h-[100vh] ${roboto.variable} ${KafuTechnoStd.variable} overflow-y-scroll`}>
           <div className="fixed inset-0 bg-gradient-to-b from-[#000305] via-[#000305] to-[#130316] z-0" />
           <Sparks />
           <div className="fixed inset-0 master-duel-screen-texture z-0" />

@@ -11,6 +11,7 @@ interface TooltipProps {
 }
 interface PieChartProps extends React.HTMLAttributes<HTMLDivElement> {
   size: number;
+  pieid: number;
   data: {
     image: string;
     value: number;
@@ -164,7 +165,7 @@ const PieChart = (props: PieChartProps) => {
       <path
         key={index}
         d={`M ${radius},${radius} L ${x1},${y1} A ${radius},${radius} 0 ${angle > 180 ? 1 : 0} 1 ${x2},${y2} Z`}
-        fill={`url(#pattern${index})`}
+        fill={`url(#pattern${index}${props.pieid}${item.title.replace(/ /g, "").replace(/\n/g, "")})`}
         fillOpacity={hoveredSlice === index ? "0.7" : "1"}
         stroke="white"
         x={"100"}
@@ -174,7 +175,13 @@ const PieChart = (props: PieChartProps) => {
       />
     );
     const pattern = (
-      <pattern key={index} id={`pattern${index}`} patternUnits="objectBoundingBox" width="100%" height="100%">
+      <pattern
+        key={index}
+        id={`pattern${index}${props.pieid}${item.title.replace(/ /g, "").replace(/\n/g, "")}`}
+        patternUnits="objectBoundingBox"
+        width="100%"
+        height="100%"
+      >
         <image href={item.image} width={Math.max(width, height)} height={Math.max(width, height)} x={x} y={y} />
       </pattern>
     );
