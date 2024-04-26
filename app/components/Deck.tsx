@@ -3,7 +3,7 @@ import Image from "next/image";
 import YugiohCard, { YugiohCardProps } from "./YugiohCard/Client";
 import FallbackImage from "./FallbackImage";
 import { Skill, SkillProps } from "./Skill";
-import { HTMLProps, useEffect } from "react";
+import { HTMLProps, useEffect, useState } from "react";
 import { YugiohCardType } from "../types/YugiohCard";
 type RushDeckProps = {
   //deckType: string;
@@ -13,15 +13,30 @@ type RushDeckProps = {
   skill?: SkillProps;
   format: "OCG" | "MASTER" | "SPEED" | "RUSH";
 };
-
-export const Deck = (props: RushDeckProps) => {
+interface DeckClientProps {
+  id: string;
+}
+export const DeckClient = (props: DeckClientProps) => {
+  const [data, setData] = useState<any>(null);
+  useEffect(() => {
+    const getDeck = async () => {
+      const request = await fetch(`/api/deck?id=${props.id}`);
+      const response = await request.json();
+      if (response.mainDeck) setData(response);
+    };
+    getDeck();
+  }, []);
+  if (data) return <Deck {...data} format="SPEED" />;
+  return <></>;
+};
+const SpeedDeck = (props: RushDeckProps) => {
   let Container: string;
   if (props.format == "RUSH") {
     Container = " dl-rush-container";
   } else if (props.format == "SPEED") {
     Container = " dl-speed-container";
   } else {
-    Container = " md-container";
+    Container = "md-container";
   }
   const normal = props.mainDeck.filter((e) => {
     return e.types.some((str) => str === "Normal");
@@ -184,4 +199,100 @@ export const Deck = (props: RushDeckProps) => {
       </div>
     </>
   );
+};
+const StandardDeck = (props: RushDeckProps) => {
+  const normal = props.mainDeck.filter((e) => {
+    return e.types.some((str) => str === "Normal");
+  }).length;
+  const effect = props.mainDeck.filter((e) => {
+    return (
+      e.types.some((str) => str === "Effect") &&
+      !e.types.some((str) => str === "Ritual") &&
+      !e.types.some((str) => str === "Fusion") &&
+      !e.types.some((str) => str === "Synchro") &&
+      !e.types.some((str) => str === "Xyz") &&
+      !e.types.some((str) => str === "Link")
+    );
+  }).length;
+  const ritual = props.mainDeck.filter((e) => {
+    return e.types.some((str) => str === "Ritual");
+  }).length;
+  const fusion =
+    props.extraDeck?.filter((e) => {
+      return e.types.some((str) => str === "Fusion");
+    }).length || 0;
+  const synchro =
+    props.extraDeck?.filter((e) => {
+      return e.types.some((str) => str === "Synchro");
+    }).length || 0;
+  const xyz =
+    props.extraDeck?.filter((e) => {
+      return e.types.some((str) => str === "Xyz");
+    }).length || 0;
+  const link =
+    props.extraDeck?.filter((e) => {
+      return e.types.some((str) => str === "Link");
+    }).length || 0;
+  const spell = props.mainDeck.filter((e) => {
+    return e.types.includes("Spell");
+  }).length;
+  const trap = props.mainDeck.filter((e) => {
+    return e.types.includes("Trap");
+  }).length;
+  const mainDeck = props.mainDeck.length;
+  const sideDeck = props.sideDeck?.length;
+  const extraDeck = props.extraDeck?.length;
+  return (
+    <>
+      <div className={`w-7/8 md-container max-w-[620px] sm:max-sm:m-auto`}>
+        {/*Deck Section*/}
+        {/*Main Deck Section*/}
+        <div className="w-full p-3">
+          <div className="flex flex-wrap w-full">
+            {props.mainDeck.map((e, index) => {
+              return (
+                <div className="w-1/5 p-[0.2em] md:w-1/6 lg:w-[10%]" key={index}>
+                  <YugiohCard card={e} rarity={"UR"} format={props.format} />
+                </div>
+              );
+            })}
+          </div>
+          {/*Extra Deck Section*/}
+          {props.extraDeck && (
+            <>
+              <p>Extra Deck:</p>
+              <div className="flex flex-wrap w-full">
+                {props.extraDeck.map((e, index) => {
+                  return (
+                    <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
+                      <YugiohCard card={e} rarity={"UR"} format={props.format} />
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+          {/*Side Deck Section*/}
+          {props.sideDeck && (
+            <>
+              <p>Side Deck:</p>
+              <div className="flex flex-wrap w-full">
+                {props.sideDeck.map((e, index) => {
+                  return (
+                    <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
+                      <YugiohCard card={e} rarity={"UR"} format={props.format} />
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+export const Deck = (props: RushDeckProps) => {
+  // if (props.format == "SPEED" || props.format == "RUSH") return<SpeedDeck {...props}/>
+  return <StandardDeck {...props} />;
 };

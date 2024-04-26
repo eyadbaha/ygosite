@@ -140,15 +140,32 @@ export default async () => {
   const OcgData = await getAnalysis("ocg");
   const RushDuelData = await getAnalysis("rush");
   return (
-    <Tabs
-      data={[
-        { title: "Duel Links (SPEED)", element: <DiagonalTable data={SpeedDuelData} /> },
-        { title: "Duel Links (RUSH)", element: <DiagonalTable data={SpeedRushDuelData} /> },
-        { title: "Master Duel", element: <DiagonalTable data={MasterDuelData} /> },
-        { title: "Yu-Gi-Oh! TCG", element: <DiagonalTable data={TcgData} /> },
-        { title: "Yu-Gi-Oh! OCG", element: <DiagonalTable data={OcgData} /> },
-        { title: "Yu-Gi-Oh! Rush Duel", element: <DiagonalTable data={RushDuelData} /> },
-      ]}
-    />
+    <>
+      <p className=" text-red-500">
+        Please note that the current showcase utilizes a limited dataset consisting solely of "Dkayed Meta Weekly" and "Master Cup" events for master duel data,
+        and only 2 YCS events for TCG data. This restricted dataset may compromise the reliability of the report.
+      </p>
+      <p className="italic text-yellow-200">
+        This page automatically compiles data from tournaments reported on this site, for online tournaments such as
+        <span className="text-blue-400">
+          <a href="http://localhost:3000/tournament/65be8eae20fa5a201b5a9596"> Duel Links Grand Prix #60</a>
+        </span>
+        , the process is 100% automaitc, for real life events such as
+        <span className="text-blue-400">
+          <a href="http://localhost:3000/tournament/65be8eae20fa5a201b5a9596"> YCS Raleigh 2024</a>
+        </span>
+        , the process requires manual setup for the brackets.
+      </p>
+      <Tabs
+        data={[
+          { title: "Duel Links (SPEED)", element: <DiagonalTable data={SpeedDuelData} /> },
+          { title: "Duel Links (RUSH)", element: <DiagonalTable data={SpeedRushDuelData} /> },
+          { title: "Master Duel", element: <DiagonalTable data={MasterDuelData} /> },
+          { title: "Yu-Gi-Oh! TCG", element: <DiagonalTable data={TcgData} /> },
+          { title: "Yu-Gi-Oh! OCG", element: <DiagonalTable data={OcgData} /> },
+          { title: "Yu-Gi-Oh! Rush Duel", element: <DiagonalTable data={RushDuelData} /> },
+        ]}
+      />
+    </>
   );
 };

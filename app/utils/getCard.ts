@@ -1,8 +1,10 @@
 import Card from "../models/Card";
 import { unstable_cache } from "next/cache";
+import dbConnect from "./dbConnect";
 
 export const getCard = unstable_cache(
   async (id: number) => {
+    await dbConnect();
     const result = await Card.findOne({ id }, { _id: 0 }).lean();
     if (result) {
       if (result.types.includes("Spell")) {

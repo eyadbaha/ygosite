@@ -11,6 +11,8 @@ const MarkdownEditor = () => {
 ##### markdown preview
 ###### markdown preview
 markdown preview
+
+This is a paragraph with a custom syntax: {@test:123}
 `
   );
 
@@ -33,7 +35,7 @@ markdown preview
         style={{ resize: "none", minHeight: "50px" }}
       />
       <div className="markdown">
-        <Markdown>markdown</Markdown> {/* Pass state as prop */}
+        <Markdown>{markdown}</Markdown> {/* Pass state as prop */}
       </div>
     </div>
   );

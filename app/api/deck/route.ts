@@ -1,5 +1,6 @@
 import Deck from "@/app/models/Deck";
 import dbConnect from "@/app/utils/dbConnect";
+import { getDeck } from "@/app/utils/getDeck";
 import { NextRequest } from "next/server";
 
 export const GET = async (req: NextRequest) => {
@@ -7,13 +8,11 @@ export const GET = async (req: NextRequest) => {
     await dbConnect();
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-    const result = await Deck.findById(id)
-      .populate({
-        path: "skill",
-        model: "skills",
-      })
-      .lean();
-    return new Response(JSON.stringify(result));
+    if (id) {
+      const result = await getDeck(id);
+      if (result) return new Response(JSON.stringify(result));
+    }
+    return new Response("{}");
   } catch (err) {
     console.log(err);
     return new Response("Not cool");

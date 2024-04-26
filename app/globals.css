@@ -45,6 +45,14 @@ img {
   background-size: cover;
   background-blend-mode: color;
 }
+.md-border {
+  border: 2px solid grey;
+}
+.ocg-background {
+  background-image: url("/img/bg/ocg_background_layer_1.png"), url("/img/bg/ocg_background_layer_2.png");
+  background-size: cover, cover;
+  background-blend-mode: overlay;
+}
 .hexagon {
   aspect-ratio: 1.1547/1;
   -webkit-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
@@ -62,12 +70,15 @@ img {
   .dl-rush-container {
     @apply dl-rush-border dl-rush-background;
   }
+  .ocg-container {
+    @apply md-border ocg-background;
+  }
   .master-duel-screen-texture {
     background-image: repeating-linear-gradient(to bottom, rgb(128, 128, 128, 0.1), rgb(128, 128, 128, 0.1) 2px, transparent 2px, transparent 4px);
     @apply absolute inset-0 w-full h-full;
   }
   .md-container {
-    @apply md-background border-4 border-double border-[#7A7C7F];
+    @apply md-background md-border;
   }
   .text-title {
     @apply font-KafuTechnoStd text-white;

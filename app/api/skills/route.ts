@@ -23,5 +23,5 @@ export const GET = async (req: Request) => {
       return new Response(JSON.stringify(response));
     }
   }
-  return new Response(null);
+  return new Response("{}");
 };
