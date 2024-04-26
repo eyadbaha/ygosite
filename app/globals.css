@@ -1,6 +1,9 @@
 img {
   user-select: none;
 }
+p {
+  font-family: var(--font-CraftGothicDemiBold);
+}
 .inner-border {
   position: relative;
 }
@@ -78,7 +81,7 @@ img {
     @apply absolute inset-0 w-full h-full;
   }
   .md-container {
-    @apply md-background md-border;
+    @apply md-background md-border font-CraftGothicDemiBold;
   }
   .text-title {
     @apply font-KafuTechnoStd text-white;

@@ -23,8 +23,10 @@ const Clickable = (props: YugiohCardProps) => {
   let Container: string;
   if (props.format == "RUSH") {
     Container = " dl-rush-container";
-  } else {
+  } else if (props.format == "SPEED") {
     Container = " dl-speed-container";
+  } else {
+    Container = " md-container";
   }
   const art = props.art == 1 || !props.art ? `${IMAGE_SERVER}/cards/${card.id}.webp` : `${IMAGE_SERVER}/cards/${card.id}_${props.art}.webp`;
   const handleClick = () => {
@@ -33,14 +35,14 @@ const Clickable = (props: YugiohCardProps) => {
       content: (
         <div className={`w-full max-w-[800px] min-h-[200px] md:min-h-[500px] grid grid-cols-3 p-4 content-center gap-4${Container}`}>
           <div className="h-full flex flex-col col-span-1 place-content-center">
-            {props.rarity && (
+            {props.rarity && props.format != "OCG" && (
               <FallbackImage
-                className="self-end w-1/3"
-                src={`/img/icons/dl/${props.rarity}.png`}
+                className={props.format == "MASTER" ? "self-end w-1/5" : "self-end w-1/3"}
+                src={`/img/icons/${props.format == "MASTER" ? "md_l" : "dl"}/${props.rarity}.png`}
                 fallback={`/img/icons/UR.png`}
                 alt=""
-                width={100}
-                height={100}
+                width={50}
+                height={50}
               />
             )}
             <div className="relative">
@@ -119,30 +121,12 @@ const Clickable = (props: YugiohCardProps) => {
   );
 };
 export default (props: YugiohCardProps) => {
-  let Container: string;
-  if (props.format == "RUSH") {
-    Container = " dl-rush-container";
-  } else {
-    Container = " dl-speed-container";
-  }
   const card = props.card;
   const art = props.art == 1 || !props.art ? `${IMAGE_SERVER}/cards/${card.id}.webp` : `${IMAGE_SERVER}/cards/${card.id}_${props.art}.webp`;
   return props.inline ? (
     <Clickable {...props} />
   ) : (
-    <div className="flex flex-col">
-      {props.rarity && (
-        <FallbackImage
-          className={`${!props.disableModal && "cursor-pointer"} w-1/3 self-end right-0`}
-          src={`/img/icons/dl/${props.rarity}.png`}
-          fallback={`/img/icons/UR.png`}
-          alt=""
-          width={100} // Default width
-          height={100} // Default width
-          sizes="(max-width: 400px) 100px, (max-width: 800px) 100px, 100px"
-          quality={75}
-        />
-      )}
+    <div className="flex flex-col-reverse relative">
       <div className="relative">
         {props.limit && (
           <Image src={`/img/icons/limit${props.limit}.svg`} alt={`Limit ${props.limit}`} width={50} height={50} className="absolute right-0 w-1/4 h-auto" />
@@ -159,6 +143,18 @@ export default (props: YugiohCardProps) => {
         />
         <Clickable {...props} />
       </div>
+      {props.rarity && props.format != "OCG" && (
+        <FallbackImage
+          className={`${!props.disableModal && "cursor-pointer"} w-1/2 self-end right-0 top-0 ${props.format == "MASTER" && " absolute"}`}
+          src={`/img/icons/${props.format == "MASTER" ? "md" : "dl"}/${props.rarity}.png`}
+          fallback={`/img/icons/UR.png`}
+          alt=""
+          width={100} // Default width
+          height={100} // Default width
+          sizes="(max-width: 400px) 100px, (max-width: 800px) 100px, 100px"
+          quality={75}
+        />
+      )}
     </div>
   );
 };

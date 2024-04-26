@@ -13,6 +13,7 @@ module.exports = {
       fontFamily: {
         KafuTechnoStd: ["var(--font-KafuTechnoStd)"],
         roboto: ["var(--font-roboto)"],
+        CraftGothicDemiBold: ["var(--font-CraftGothicDemiBold)"],
       },
       colors: {
         "md-lime": "#bfff00",

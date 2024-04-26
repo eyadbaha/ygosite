@@ -6,12 +6,8 @@ import { useRef, MouseEvent, useEffect, useState } from "react";
 
 const navbarList = [
   {
-    name: "SPEED Report Example",
-    link: "/speed",
-  },
-  {
-    name: "RUSH Report Example",
-    link: "/rush",
+    name: "Deck Example",
+    link: "/example",
   },
 ];
 export default (props: { avatar: { avatar: string; link: string | null } }) => {

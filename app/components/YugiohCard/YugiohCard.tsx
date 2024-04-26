@@ -8,6 +8,6 @@ interface YugiohCardProps {
 }
 const component = async (props: YugiohCardProps) => {
   const cardData: YugiohCardType | null = await YugiohCardModel.findOne({ id: props.id }, { _id: 0 }).lean();
-  return <>{cardData && <YugiohCard card={cardData} format="RUSH" />}</>;
+  return <>{cardData && <YugiohCard card={cardData} format="MASTER" />}</>;
 };
 export default memo(component);

@@ -247,52 +247,62 @@ const StandardDeck = (props: RushDeckProps) => {
       <div className={`w-7/8 md-container max-w-[620px] sm:max-sm:m-auto`}>
         {/*Deck Section*/}
         {/*Main Deck Section*/}
-        <div className="w-full p-3">
-          <div className="flex flex-wrap w-full">
-            {props.mainDeck.map((e, index) => {
-              return (
-                <div className="w-1/5 p-[0.2em] md:w-1/6 lg:w-[10%]" key={index}>
-                  <YugiohCard card={e} rarity={"UR"} format={props.format} />
-                </div>
-              );
-            })}
-          </div>
-          {/*Extra Deck Section*/}
-          {props.extraDeck && (
-            <>
-              <p>Extra Deck:</p>
-              <div className="flex flex-wrap w-full">
-                {props.extraDeck.map((e, index) => {
-                  return (
-                    <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
-                      <YugiohCard card={e} rarity={"UR"} format={props.format} />
-                    </div>
-                  );
-                })}
+        <p className="bg-[#1E272B] p-1 flex items-center">
+          <img src="/img/icons/deck.svg" alt="Deck" className=" w-[1em] mr-1" /> Main Deck: {mainDeck}
+        </p>
+        <div className="flex flex-wrap w-full">
+          {props.mainDeck.map((e, index) => {
+            return (
+              <div
+                className={
+                  props.format == "SPEED" || props.format == "RUSH" ? "w-[12.5%] p-[0.2em] md:w-1/6 lg:w-[10%]" : "w-[12.5%] p-[0.2em] md:w-1/6 lg:w-[10%]"
+                }
+                key={index}
+              >
+                <YugiohCard card={e} rarity={"UR"} format={props.format} />
               </div>
-            </>
-          )}
-          {/*Side Deck Section*/}
-          {props.sideDeck && (
-            <>
-              <p>Side Deck:</p>
-              <div className="flex flex-wrap w-full">
-                {props.sideDeck.map((e, index) => {
-                  return (
-                    <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
-                      <YugiohCard card={e} rarity={"UR"} format={props.format} />
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          )}
+            );
+          })}
         </div>
+        {/*Extra Deck Section*/}
+        {props.extraDeck && props.extraDeck.length > 0 && (
+          <>
+            <p className="bg-[#1E272B] p-1 flex items-center">
+              <img src="/img/icons/deck.svg" alt="Deck" className=" w-[1em] mr-1" /> Extra Deck: {extraDeck}
+            </p>
+            <div className="flex flex-wrap w-full">
+              {props.extraDeck.map((e, index) => {
+                return (
+                  <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
+                    <YugiohCard card={e} rarity={"UR"} format={props.format} />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
+        {/*Side Deck Section*/}
+        {props.sideDeck && props.sideDeck.length > 0 && (
+          <>
+            <p className="bg-[#1E272B] p-1 flex items-center">
+              <img src="/img/icons/deck.svg" alt="Deck" className=" w-[1em] mr-1" /> Side Deck: {sideDeck}
+            </p>
+            <div className="flex flex-wrap w-full">
+              {props.sideDeck.map((e, index) => {
+                return (
+                  <div className="w-[12.5%] lg:w-[10%] p-[0.2em]" key={index}>
+                    <YugiohCard card={e} rarity={"UR"} format={props.format} />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
 };
 export const Deck = (props: RushDeckProps) => {
-  // if (props.format == "SPEED" || props.format == "RUSH") return<SpeedDeck {...props}/>
+  if (props.format == "SPEED" || props.format == "RUSH") return <SpeedDeck {...props} />;
   return <StandardDeck {...props} />;
 };
