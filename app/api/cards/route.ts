@@ -12,7 +12,7 @@ export const GET = async (req: Request) => {
     if (name) query.name = { $regex: new RegExp(name, "i") };
     if (id) query.id = id;
     const result = await Card.find(query, { _id: 0, card_sets: 0, card_images: 0, card_prices: 0 }).limit(limit).lean();
-    if (result) return new Response(JSON.stringify(result));
+    return new Response(JSON.stringify(result));
   } catch (err) {
     console.log(err);
     return new Response("{}");

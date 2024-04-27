@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
+import { YugiohCardType } from "../types/YugiohCard";
 const Attributes = ["SPELL", "TRAP", "FIRE", "WATER", "EARTH", "WIND", "LIGHT", "DARK", "DIVINE", "LAUGH"] as const;
 const CardSetSchema = new mongoose.Schema({
   code: String,
@@ -30,10 +31,10 @@ const CardSchema = new mongoose.Schema(
   { collection: "cards" }
 );
 const modelName = "YugiohCard";
-const existingModel = mongoose.models[modelName];
+const existingModel = mongoose.models[modelName] as Model<YugiohCardType>;
 
 // Define Mongoose model if not already defined
-const YugiohCardModel = existingModel || mongoose.model(modelName, CardSchema);
+const YugiohCardModel = existingModel || mongoose.model<YugiohCardType>(modelName, CardSchema);
 
 // Export the model
 export default YugiohCardModel;
