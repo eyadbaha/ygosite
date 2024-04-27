@@ -1,10 +1,13 @@
+import { notFound } from "next/navigation";
 import { CardArtsInfo } from "@/app/components/cardArtsInfo";
 import { convertTextToHTML } from "@/app/utils/convertTextToHTML";
-import { YugiohCardType } from "@/app/types/YugiohCard";
-import { getCard } from "@/app/utils/getCard";
+import Card from "@/app/models/Card";
+import dbConnect from "@/app/utils/dbConnect";
 
 export default async ({ params }: any) => {
-  const cardData: YugiohCardType = await getCard(params.id);
+  await dbConnect();
+  const cardData = await Card.findOne({ id: params.id | 0 }, { _id: 0 }).lean();
+  if (!cardData) return notFound();
   const isMonster: boolean = "atk" in cardData && "level" in cardData;
   let level = "Level";
   if (cardData.types.includes("Xyz")) {
@@ -15,7 +18,7 @@ export default async ({ params }: any) => {
   return (
     <div className="m-auto flex gap-2 w-[900px] min-h-[450px] font-KafuTechnoStd">
       <div className="w-1/3 flex flex-col">
-        <CardArtsInfo cardInfo={cardData as any} format="SPEED" />
+        <CardArtsInfo cardInfo={cardData} format="SPEED" />
       </div>
       <div className="flex flex-col w-2/3 gap-4 h-fit">
         <p className="">
