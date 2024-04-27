@@ -26,7 +26,7 @@ export const DeckClient = (props: DeckClientProps) => {
     };
     getDeck();
   }, []);
-  if (data) return <Deck {...data} format="SPEED" />;
+  if (data) return <Deck {...data} format="MASTER" />;
   return <></>;
 };
 const SpeedDeck = (props: RushDeckProps) => {

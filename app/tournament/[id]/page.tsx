@@ -1,6 +1,4 @@
-import Tournaments from "@/app/models/Tournaments";
 import { Deck as DeckComponent } from "../../components/Deck";
-import mongoose from "mongoose";
 import { getDeck } from "@/app/utils/getDeck";
 import { getTournament } from "@/app/utils/getTournament";
 import { notFound } from "next/navigation";
