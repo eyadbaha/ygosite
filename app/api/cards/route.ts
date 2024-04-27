@@ -15,6 +15,6 @@ export const GET = async (req: Request) => {
     if (result) return new Response(JSON.stringify(result));
   } catch (err) {
     console.log(err);
+    return new Response("{}");
   }
-  return new Response("{}");
 };
