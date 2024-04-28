@@ -95,7 +95,7 @@ const Clickable = (props: YugiohCardProps) => {
   if (props.inline)
     return (
       <span
-        className="text-blue-500 cursor-pointer"
+        className={props.card.id === 404 ? `text-red-500 cursor-pointer` : `text-blue-500 cursor-pointer`}
         onClick={
           !props.disableModal
             ? (e) => {

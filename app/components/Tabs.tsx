@@ -1,3 +1,4 @@
+/* eslint react/no-children-prop: 0 */
 "use client";
 import { ReactNode, useState } from "react";
 type TabsType = {
@@ -26,13 +27,14 @@ export default (props: TabsProps) => {
           </li>
         ))}
       </ul>
-      <div className="w-full mt-10">
-        {props.data.map((element, index) => (
+      <div
+        className="w-full mt-10"
+        children={props.data.map((element, index) => (
           <div className={`${index != currentTab && "hidden"}`} key={index}>
             {element.element}
           </div>
         ))}
-      </div>
+      />
     </div>
   );
 };

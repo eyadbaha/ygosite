@@ -4,9 +4,9 @@ import { getDeck } from "@/app/utils/getDeck";
 import { NextRequest } from "next/server";
 
 export const GET = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url);
   try {
     await dbConnect();
-    const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     if (id) {
       const result = await getDeck(id);
@@ -24,7 +24,6 @@ export const POST = async (req: NextRequest) => {
     const data = await req.json();
     const deck = data.deck;
     const result = await Deck.create(deck);
-
     return new Response("Cool");
   } catch (err) {
     console.log(err);

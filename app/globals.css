@@ -1,8 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .dl-speed-container {
+    @apply dl-speed-border dl-speed-background;
+  }
+  .dl-rush-container {
+    @apply dl-rush-border dl-rush-background;
+  }
+  .ocg-container {
+    @apply md-border ocg-background;
+  }
+  .master-duel-screen-texture {
+    background-image: repeating-linear-gradient(to bottom, rgb(128, 128, 128, 0.1), rgb(128, 128, 128, 0.1) 2px, transparent 2px, transparent 4px);
+    @apply absolute inset-0 w-full h-full;
+  }
+  .md-container {
+    @apply md-background md-border font-CraftGothicDemiBold;
+  }
+  .text-title {
+    @apply font-KafuTechnoStd text-white;
+  }
+  .text-responsive-1 {
+    @apply text-lg md:text-2xl lg:text-3xl;
+  }
+  .text-responsive-2 {
+    @apply text-[8px] sm:text-sm;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-KafuTechnoStd;
+  }
+  .markdown h1 {
+    @apply text-responsive-1;
+  }
+  .markdown h2 {
+    @apply text-responsive-2;
+  }
+}
 img {
   user-select: none;
 }
-p {
-  font-family: var(--font-CraftGothicDemiBold);
+html {
+  font-size: 16px;
+}
+
+/* Responsive font sizes for headings */
+h1 {
+  font-size: 2.5em; /* 40px */
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2em; /* 32px */
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1.75em; /* 28px */
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: 1.5em; /* 24px */
+  line-height: 1.4;
+}
+
+h5 {
+  font-size: 1.25em; /* 20px */
+  line-height: 1.5;
+}
+
+h6 {
+  font-size: 1em; /* 16px */
+  line-height: 1.6;
+}
+
+/* Adjust font sizes for smaller screens */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2.25em; /* 36px */
+  }
+
+  h2 {
+    font-size: 1.875em; /* 30px */
+  }
+
+  h3 {
+    font-size: 1.625em; /* 26px */
+  }
+
+  h4 {
+    font-size: 1.375em; /* 22px */
+  }
+
+  h5 {
+    font-size: 1.125em; /* 18px */
+  }
+
+  h6 {
+    font-size: 1em; /* 16px */
+  }
 }
 .inner-border {
   position: relative;
@@ -62,48 +168,4 @@ p {
   -moz-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
 }
 .markdown {
-}
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer components {
-  .dl-speed-container {
-    @apply dl-speed-border dl-speed-background;
-  }
-  .dl-rush-container {
-    @apply dl-rush-border dl-rush-background;
-  }
-  .ocg-container {
-    @apply md-border ocg-background;
-  }
-  .master-duel-screen-texture {
-    background-image: repeating-linear-gradient(to bottom, rgb(128, 128, 128, 0.1), rgb(128, 128, 128, 0.1) 2px, transparent 2px, transparent 4px);
-    @apply absolute inset-0 w-full h-full;
-  }
-  .md-container {
-    @apply md-background md-border font-CraftGothicDemiBold;
-  }
-  .text-title {
-    @apply font-KafuTechnoStd text-white;
-  }
-  .text-responsive-1 {
-    @apply text-lg md:text-2xl lg:text-3xl;
-  }
-  .text-responsive-2 {
-    @apply text-[8px] sm:text-sm;
-  }
-  .markdown h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-KafuTechnoStd;
-  }
-  .markdown h1 {
-    @apply text-responsive-1;
-  }
-  .markdown h2 {
-    @apply text-responsive-2;
-  }
 }

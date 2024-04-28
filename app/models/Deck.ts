@@ -8,7 +8,7 @@ const schema = z.object({
   skill: z.string().optional(),
   type: z.string(),
   name: z.string(),
-  format: z.enum(["sd", "md", "ocg"]),
+  format: z.enum(["sd", "md", "ocg", "rd"]),
 });
 type deck = z.infer<typeof schema> & mongoose.Document;
 
@@ -33,6 +33,7 @@ const deckSchema = new mongoose.Schema<deck>(
       type: String,
       enum: ["sd", "md", "ocg", "rd"],
       default: "ocg",
+      required: true,
     },
   },
   { collection: "decks" }
