@@ -56,12 +56,12 @@ export default async () => {
           <div className="grid grid-cols-3">
             <div className="flex flex-col col-span-3 gap-5">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                <NavCard title="Tier List" subText="Updated 2 hours ago" imgSrc={`/menu-icons/tier-list.png`} link="/tier-list" />
+                <NavCard title="Meta Analysis" subText="Updated 2 hours ago" imgSrc={`/menu-icons/meta-analysis.png`} link="/meta-analysis" />
                 <NavCard title="Article Creator" subText="Updated 2 hours ago" imgSrc={`/menu-icons/article-creator.png`} link="/article-creator" />
+                <NavCard title="Tier List" subText="Updated 2 hours ago" imgSrc={`/menu-icons/tier-list.png`} link="/tier-list" />
                 <NavCard title="Database" subText="Updated 2 hours ago" imgSrc={`/menu-icons/database.png`} link="/database" />
                 <NavCard title="Tournaments/Events" subText="Updated 2 hours ago" imgSrc={`/menu-icons/tournaments.png`} link="/tournaments-and-events" />
                 <NavCard title="Organize an Event" subText="Updated 2 hours ago" imgSrc={`/menu-icons/event-organize.png`} link="/event-organizer" pc />
-                <NavCard title="Meta Analysis" subText="Updated 2 hours ago" imgSrc={`/menu-icons/meta-analysis.png`} link="/meta-analysis" />
                 <NavCard title="Extras" subText="Updated 2 hours ago" imgSrc={`/menu-icons/extras.png`} link="/extras" />
                 <NavCard title="Settings" subText="Updated 2 hours ago" imgSrc={`/menu-icons/settings.png`} link="/settings" pc />
               </div>
