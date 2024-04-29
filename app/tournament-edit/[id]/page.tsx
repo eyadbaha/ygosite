@@ -64,6 +64,11 @@ const masterDeckTypes = [
   "Pendulum Magician",
   "Kashtira",
   "@Ignister",
+  "Dragon Ruler",
+  "Marincess",
+  "Tellarknight",
+  "Adamancipator",
+  "Rikka",
 ];
 const DeckOptions = (props: { format: string[] }) => {
   if (props.format.includes("sd"))

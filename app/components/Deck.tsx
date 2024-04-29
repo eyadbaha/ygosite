@@ -103,7 +103,7 @@ const SpeedDeck = (props: RushDeckProps) => {
               <div className="col-start-1 row-start-5 col-span-6 row-span-1 flex justify-center items-end">
                 <div className="flex items-center justify-center gap-1">
                   <FallbackImage className="w-7 h-7" src="/img/icons/skill.png" fallback="/img/icons/skill.png" alt="Skill" width={100} height={100} />
-                  <Skill {...props.skill} format={props.format} />
+                  <Skill {...props.skill} format={props.format} name={props.skill?.name || "None"} />
                 </div>
               </div>
               <div className="col-end-7 row-start-1 col-span-3 row-span-4 hidden md:flex justify-end items-start">

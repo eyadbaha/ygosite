@@ -142,8 +142,8 @@ export default async () => {
   return (
     <>
       <p className=" text-red-500">
-        Please note that the current showcase utilizes a limited dataset consisting solely of &quot;Dkayed Meta Weekly&quot; and &quot;Master Cup&quot; events
-        for master duel data, and only 2 YCS events for TCG data. This restricted dataset may compromise the reliability of the report.
+        Please note that the current showcase utilizes a limited dataset consisting solely of some &quot;Dkayed Meta Weekly&quot; and &quot;Master Cup&quot;
+        events for master duel data, and only 2 YCS events for TCG data. This restricted dataset may compromise the reliability of the report.
       </p>
       <p className="italic text-yellow-200">
         This page automatically compiles data from tournaments reported on this site, for online tournaments such as

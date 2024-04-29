@@ -192,15 +192,7 @@ const PieChart = (props: PieChartProps) => {
   return (
     <>
       <div {...DivProps} style={{ width: size, height: size }}>
-        <svg
-          width="100%"
-          height="100%"
-          onMouseMove={(e) => {
-            if (hoveredSlice !== null) {
-              setTooltipPosition({ x: e.pageX + 10, y: e.pageY + 10 });
-            }
-          }}
-        >
+        <svg width="100%" height="100%">
           <defs>{slices.map((slice) => slice.pattern)}</defs>
           <g transform={`translate(${strokeWidth / 2},${strokeWidth / 2})`}>{slices.map((slice) => slice.path)}</g>
         </svg>

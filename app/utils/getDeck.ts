@@ -11,7 +11,7 @@ export const getDeck = unstable_cache(
       const db = mongoose.connection;
       await Skill;
       const deck = await Deck.findById(id, { _id: 0 }).lean();
-      let skill: any = {};
+      let skill: any = null;
       if (deck) {
         if (deck?.skill) {
           const skillDB = await db.collection("dlmSkills").findOne({ name: deck.skill });
@@ -48,7 +48,9 @@ export const getDeck = unstable_cache(
             return Array.from({ length: (deck.sideDeck as number[])?.filter((item) => item === card.id).length } || 0, () => card);
           })
           .flat();
-        return { ...deck, mainDeck, extraDeck, sideDeck, skill };
+        const result = { ...deck, mainDeck, extraDeck, sideDeck, skill };
+        if (skill) result.skill = skill;
+        return result;
       }
       return null;
     } catch (e) {
